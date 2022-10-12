@@ -4,8 +4,11 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "run-android": "bash ./scripts/run-android.sh",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "reset": "react-native start --reset-cache",
+    "run-android-release": "bash ./scripts/android-release.sh",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
