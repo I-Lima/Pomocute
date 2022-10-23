@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "run-android": "bash ./scripts/run-android.sh",
+    "android-clean": "bash ./scripts/run-android.sh",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "reset": "react-native start --reset-cache",
