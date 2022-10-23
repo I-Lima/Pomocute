@@ -13,9 +13,11 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@types/react-native-vector-icons": "^6.4.12",
     "react": "18.1.0",
     "react-native": "0.70.2",
-    "react-native-base": "^1.1.0"
+    "react-native-base": "^1.1.0",
+    "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
