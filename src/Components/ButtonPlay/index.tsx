@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { BLACK, WHITE, YELLOW } from '../../Constants';
 interface PropsComponent {
   pressFunction: () => any;
   color: "yellow" | "white",
@@ -10,8 +10,8 @@ interface PropsComponent {
 
 function ButtonPlay(props: PropsComponent) {
   const { color, pressFunction, type } = props;
-  const colorButton = color === "yellow" ? "#F7CD64" : "white";
-  const colorIcon = color === "yellow" ? "white" : "#F7CD64";
+  const colorButton = color === "yellow" ? YELLOW : WHITE;
+  const colorIcon = color === "yellow" ? WHITE : YELLOW;
 
  return (
   <TouchableOpacity
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       alignItems: 'center',
       justifyContent: 'center',
-      shadowColor: 'black',
+      shadowColor: BLACK,
       shadowRadius: 50,
       elevation: 5
   }
