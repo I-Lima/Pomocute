@@ -1,6 +1,7 @@
-import { 
-  View, 
+import {
+  View,
   Text,
+  Dimensions,
   TouchableOpacity,
   StyleSheet
 } from "react-native";
@@ -38,14 +39,14 @@ const styles = StyleSheet.create({
     width: Dimension.WIDTH
   },
   contentTitle:{
-    height: Dimension.HEIGHT / 14, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    paddingHorizontal: Dimension.WIDTH / 24 
+    height: Dimension.HEIGHT / 14,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Dimension.WIDTH / 24
   },
   title: {
-    color: 'black', 
+    color: 'black',
     fontSize: 24,
     textTransform: "capitalize"
   },

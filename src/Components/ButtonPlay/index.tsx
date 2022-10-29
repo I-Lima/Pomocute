@@ -18,7 +18,7 @@ function ButtonPlay(props: PropsComponent) {
     onPress={pressFunction}
     style={[styles.buttonContainer, { backgroundColor: colorButton }]}
   >
-    {type === "play" && 
+    {type === "play" &&
       <Icon name="play" size={56} color={colorIcon} />
     }
 

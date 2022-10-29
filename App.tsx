@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import ButtonPlay from './src/Components/ButtonPlay';
 
 const App = () => {
   return (
