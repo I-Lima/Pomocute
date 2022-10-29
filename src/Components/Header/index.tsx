@@ -1,13 +1,11 @@
 import { 
   View, 
-  Text, 
-  Dimensions, 
-  TouchableOpacity, 
-  StyleSheet 
+  Text,
+  TouchableOpacity,
+  StyleSheet
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-const width = Dimensions.get('window').width; // Remove to GlobalStyle
-const height = Dimensions.get('window').height; // Remove to GlobalStyle
+import { Dimension, Fonts } from "../../Constants";
 
 interface PropsComponent {
   title: string;
@@ -15,15 +13,16 @@ interface PropsComponent {
 }
 
 function Header(props: PropsComponent) {
+  const { title, backFunction } = props;
 
   return(
     <View style={styles.container}>
       <View style={styles.contentTitle}>
-        <Text style={styles.title}>
-          {props.title.toUpperCase()}
+        <Text style={[styles.title, Fonts.ROBOTO_BOLD]}>
+          {title.toUpperCase()}
         </Text>
 
-        <TouchableOpacity onPress={props.backFunction} >
+        <TouchableOpacity onPress={backFunction} >
           <Icon name="close" size={32} color='black' />
         </TouchableOpacity>
       </View>
@@ -36,19 +35,18 @@ function Header(props: PropsComponent) {
 
 const styles = StyleSheet.create({
   container:{
-    width: width
+    width: Dimension.WIDTH
   },
   contentTitle:{
-    height: height / 14, 
+    height: Dimension.HEIGHT / 14, 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     alignItems: 'center', 
-    paddingHorizontal: width / 24 
+    paddingHorizontal: Dimension.WIDTH / 24 
   },
   title: {
     color: 'black', 
     fontSize: 24,
-    fontFamily: 'Roboto-Bold', // Change to GlobalStyle
     textTransform: "capitalize"
   },
   lineBorder: {

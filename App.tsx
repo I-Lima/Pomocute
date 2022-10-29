@@ -2,10 +2,6 @@ import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import ButtonPlay from './src/Components/ButtonPlay';
 
-const teste = () => {
-  console.log('foi');
-}
-
 const App = () => {
   return (
     <View>
@@ -14,10 +10,12 @@ const App = () => {
         backgroundColor="gray"
       />
 
-      <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: "center"}} >
+      <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: "center"}} >
+
         <Text style={{ fontSize: 40 }}>
           HOME
         </Text>
+
       </SafeAreaView>
     </View>
   );
