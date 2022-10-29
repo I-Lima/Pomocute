@@ -1,9 +1,9 @@
-import { 
-  View, 
-  Text, 
-  Dimensions, 
-  TouchableOpacity, 
-  StyleSheet 
+import {
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 const width = Dimensions.get('window').width; // Remove to GlobalStyle
@@ -39,14 +39,14 @@ const styles = StyleSheet.create({
     width: width
   },
   contentTitle:{
-    height: height / 14, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    paddingHorizontal: width / 24 
+    height: height / 14,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: width / 24
   },
   title: {
-    color: 'black', 
+    color: 'black',
     fontSize: 24,
     fontFamily: 'Roboto-Bold', // Change to GlobalStyle
     textTransform: "capitalize"
