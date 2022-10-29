@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { WIDTH, HEIGHT, GlobalStyle } from "../../Constants";
+import { Dimension, Fonts } from "../../Constants";
 
 interface PropsComponent {
   title: string;
@@ -18,7 +18,7 @@ function Header(props: PropsComponent) {
   return(
     <View style={styles.container}>
       <View style={styles.contentTitle}>
-        <Text style={[styles.title, GlobalStyle.ROBOTO_BOLD]}>
+        <Text style={[styles.title, Fonts.ROBOTO_BOLD]}>
           {title.toUpperCase()}
         </Text>
 
@@ -35,14 +35,14 @@ function Header(props: PropsComponent) {
 
 const styles = StyleSheet.create({
   container:{
-    width: WIDTH
+    width: Dimension.WIDTH
   },
   contentTitle:{
-    height: HEIGHT / 14, 
+    height: Dimension.HEIGHT / 14, 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     alignItems: 'center', 
-    paddingHorizontal: WIDTH / 24 
+    paddingHorizontal: Dimension.WIDTH / 24 
   },
   title: {
     color: 'black', 

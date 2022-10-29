@@ -1,25 +1,26 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 /*----------------- GLOBAL STYLES -----------------*/
-// Colors
-export const WHITE = '#FFFFFF';
-export const YELLOW = '#F7CD64';
-export const GRAY = '#F0F0F0';
-export const BLACK = '#000000';
-export const BACKGROUND_WHITE = '#FCFCFC';
-export const BACKGROUND_GREEN = '#96E363';
-export const BACKGROUND_BLUE = '#7CE3F3';
-export const BACKGROUND_PINK = '#D96DCD';
-export const BACKGROUND_YELLOW = '#FFDB81';
-export const SELECT_COLOR = '#69C522';
-export const CUSTOM_LOCAL = '#EBEBEB';
+export const Colors = {
+  WHITE: '#FFFFFF',
+  YELLOW: '#F7CD64',
+  GRAY: '#F0F0F0',
+  BLACK: '#000000',
+  BACKGROUND_WHITE: '#FCFCFC',
+  BACKGROUND_GREEN: '#96E363',
+  BACKGROUND_BLUE: '#7CE3F3',
+  BACKGROUND_PINK: '#D96DCD',
+  BACKGROUND_YELLOW: '#FFDB81',
+  SELECT_COLOR: '#69C522',
+  CUSTOM_LOCAL: '#EBEBEB',
+};
 
-// Dimensions
-export const WIDTH = Dimensions.get('window').width;
-export const HEIGHT = Dimensions.get('window').height;
+export const Dimension = {
+  WIDTH: Dimensions.get('window').width,
+  HEIGHT: Dimensions.get('window').height,
+}
 
-export const GlobalStyle = StyleSheet.create({
-  // Fonts
+export const Fonts = StyleSheet.create({
   COMFORTAA_BOLD: {
     fontFamily: 'Comfortaa-Bold',
   },
