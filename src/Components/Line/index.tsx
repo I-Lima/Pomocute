@@ -1,26 +1,26 @@
 import { Box } from "native-base";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { Colors } from "../../Constants";
 
-function Line() {
+interface PropsLines {
+  height?: number
+}
+
+function Line(props: PropsLines) {
+  const DefaultHeight = props.height ? props.height : 0.8;
+
   return(
-    <View
-      style={{ elevation: 10, }}
-    >
-    <View
-      style={{
-        width: '100%',
-        backgroundColor: Colors.BLACK,
-        height: 1,
-        opacity: 0.5,
-        shadowColor: 'gray',
-        shadowOffset: {
-          height: 0,
-          width: 50,
-        }
-      }}
-    />
- </View>
+    <View style={{ elevation: 10 }}>
+      <View
+        style={{
+          width: '100%',
+          backgroundColor: Colors.BLACK,
+          height: DefaultHeight,
+          opacity: 0.8,
+          elevation: 3,
+        }}
+      />
+  </View>
   );
 };
 
