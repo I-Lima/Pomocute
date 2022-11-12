@@ -1,22 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { NativeBaseProvider } from 'native-base';
+import Index from './src';
 
 const App = () => {
   return (
-    <View>
-      <StatusBar
-        barStyle={"light-content"}
-        backgroundColor="gray"
-      />
-
-      <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: "center"}} >
-
-        <Text style={{ fontSize: 40 }}>
-          HOME
-        </Text>
-
-      </SafeAreaView>
-    </View>
+    <NativeBaseProvider>
+      <Index />
+    </NativeBaseProvider>
   );
 };
 
