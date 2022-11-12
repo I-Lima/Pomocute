@@ -1,30 +1,89 @@
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Box } from "native-base";
-import { View, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dimension, Fonts, Colors } from "../../Constants";
 import Line from "../Line";
 
-function Accordion() {
+interface PropsAccordion {
+  title: string;
+  iconName?: string;
+  childrenComponent: () => React.ReactNode;
+  hided: boolean;
+  onPress: () => void;
+}
+
+function Accordion(props: PropsAccordion) {
+  const { title, iconName, childrenComponent, hided, onPress } = props;
+  const defaultHided = hided ? "flex" : "none";
+
   return(
-    <Box rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
-      <View style={{ width: Dimension.WIDTH - 20, flexDirection: "row", paddingHorizontal: 8, paddingVertical: 10, alignItems: 'center' }}>
-        <Icon name="alarm-outline" size={48} color={Colors.BLACK} />
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.touchStyle}
+    >
+      <Box
+        rounded="lg"
+        overflow="hidden"
+        borderColor="coolGray.300"
+        borderWidth="2"
+        width={Dimension.WIDTH - 20}
+        paddingY={2}
+      >
+        <View style={styles.content}>
+          {iconName ?
+            <Icon
+              name={iconName}
+              size={Dimension.WIDTH * 0.12}
+              color={Colors.BLACK}
+              style={styles.iconStyle}
+            />
+            : null
+          }
 
-        <Text style={[ Fonts.ROBOTO_MEDIUM, { textTransform: 'capitalize', fontSize: 32, color: Colors.BLACK, marginLeft: 16 }]} >
-          colores
-        </Text>
-      </View>
-
-
-      <View style={{ display: 'flex', height: 20 }}>
-        <Line  />
-
-        <View>
-
+          <Text style={[ Fonts.ROBOTO_MEDIUM, styles.title]} >
+            {title}
+          </Text>
         </View>
-      </View>
-    </Box>
+
+        <View style={[styles.hidedContainer, { display: defaultHided }]}>
+          <Line   />
+
+          <View style={styles.hidedContent} >
+            {childrenComponent()}
+          </View>
+        </View>
+      </Box>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  touchStyle: {
+    backgroundColor: 'transparent'
+  },
+  content: {
+    flexDirection: "row",
+    marginVertical: 10,
+    paddingHorizontal: 8,
+    alignItems: 'center'
+  },
+  iconStyle: {
+    marginLeft: 4
+  },
+  title: {
+    textTransform: 'capitalize',
+    fontSize: 28,
+    color: Colors.BLACK,
+    marginLeft: 16
+  },
+  hidedContainer: {
+    marginTop: 8
+  },
+  hidedContent: {
+    marginVertical: 16,
+    paddingHorizontal: 20
+  }
+});
 
 export default Accordion;
