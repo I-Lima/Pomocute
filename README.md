@@ -7,9 +7,11 @@ O app já vem com o tempo padrão da técnica, porém o usuário tem a possibili
 
 ## Objetivo
 
-Esse projeto foi desenvolvido em parceria para evoluir o conhecimento em react native e typescript do grupo
+Esse projeto foi desenvolvido para evoluir o conhecimento em react native e typescript.
 
 ## Projeto 
+
+[Link do projeto](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
 
 * Interface
 
@@ -22,3 +24,7 @@ Esse projeto foi desenvolvido em parceria para evoluir o conhecimento em react n
 * Paleta de cores
   
   <img src="https://user-images.githubusercontent.com/83174653/197643357-3c33900d-7d07-4b72-baeb-627633387df7.png" width="70%" />
+
+ ## Necessidades do Usuário e Requisitos do Software
+ 
+[Link para o documento](https://docs.google.com/document/d/1uhMJSbENiGtFhuybQojOMDzJ6dCHOt-UeCvniPRtf70/edit?usp=sharing)
