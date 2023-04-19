@@ -1,3 +1,5 @@
+[Leia esta página em português](https://github.com/0317IL/Pomocute/blob/master/README-pt.md)
+
 # Pomocute
 ## Introduction
 
