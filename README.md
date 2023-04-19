@@ -9,9 +9,9 @@ O app já vem com o tempo padrão da técnica, porém o usuário tem a possibili
 
 Esse projeto foi desenvolvido para evoluir o conhecimento em react native e typescript.
 
-## Projeto 
+## Protótipo
 
-[Link do projeto](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
+[Link do protótipo](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
 
 * Interface
 
