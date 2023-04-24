@@ -1,32 +1,39 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useState, Ref } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
-interface PropsComponent {
+
+interface ButtonPlayProps {
   onPressPlay?: () => void;
   onPressPause?: () => void;
-  onPressRefresh?: () => void;
   color: "yellow" | "white";
-  type: "play" | "refresh" | "pause";
 }
 
-function ButtonPlay(props: PropsComponent) {
-  const { color, onPressPause, onPressPlay, onPressRefresh, type } = props;
+interface ButtonPlayRef {
+  changeTypeToPlay: () => void;
+}
+
+const ButtonPlay = React.forwardRef((props: ButtonPlayProps, ref: Ref<ButtonPlayRef>) => {
+  const { color, onPressPause, onPressPlay } = props;
   const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
   const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;
-  const [buttonType, setButtonType] = useState(type === 'pause' ? 'pause' : 'play');
+  const [buttonType, setButtonType] = useState("play");
+
+  useImperativeHandle(ref, () => ({
+    changeTypeToPlay: () => {
+      setButtonType("play");
+    },
+  }));
 
   const handlePress = () => {
     if (buttonType === "play") {
       setButtonType("pause");
 
-      if(onPressPlay) onPressPlay();
-    } else if (buttonType === "pause") {
+      if (onPressPlay) onPressPlay();
+    } else {
       setButtonType("play");
 
-      if(onPressPause) onPressPause();
-    } else {
-      if(onPressRefresh) onPressRefresh();
+      if (onPressPause) onPressPause();
     }
   };
 
@@ -38,11 +45,9 @@ function ButtonPlay(props: PropsComponent) {
       {buttonType === "play" && <Icon name="play" size={56} color={colorIcon} />}
 
       {buttonType === "pause" && <Icon name="pause" size={70} color={colorIcon} />}
-
-      {type === "refresh" && <Icon name="refresh" size={56} color={colorIcon} />}
     </TouchableOpacity>
   );
-}
+});
 
 const styles = StyleSheet.create({
   buttonContainer: {
