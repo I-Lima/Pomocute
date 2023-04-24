@@ -1,30 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
 interface PropsComponent {
-  pressFunction: () => any;
+  onPressPlay?: () => void;
+  onPressPause?: () => void;
+  onPressRefresh?: () => void;
   color: "yellow" | "white";
   type: "play" | "refresh" | "pause";
 }
 
 function ButtonPlay(props: PropsComponent) {
-  const { color, pressFunction, type } = props;
+  const { color, onPressPause, onPressPlay, onPressRefresh, type } = props;
   const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
   const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;
+  const [buttonType, setButtonType] = useState(type === 'pause' ? 'pause' : 'play');
+
+  const handlePress = () => {
+    if (buttonType === "play") {
+      setButtonType("pause");
+
+      if(onPressPlay) onPressPlay();
+    } else if (buttonType === "pause") {
+      setButtonType("play");
+
+      if(onPressPause) onPressPause();
+    } else {
+      if(onPressRefresh) onPressRefresh();
+    }
+  };
 
   return (
     <TouchableOpacity
-      onPress={pressFunction}
+      onPress={handlePress}
       style={[styles.buttonContainer, { backgroundColor: colorButton }]}
     >
-      {type === "play" && <Icon name="play" size={56} color={colorIcon} />}
+      {buttonType === "play" && <Icon name="play" size={56} color={colorIcon} />}
 
-      {type === "pause" && <Icon name="pause" size={70} color={colorIcon} />}
+      {buttonType === "pause" && <Icon name="pause" size={70} color={colorIcon} />}
 
-      {type === "refresh" && (
-        <Icon name="refresh" size={56} color={colorIcon} />
-      )}
+      {type === "refresh" && <Icon name="refresh" size={56} color={colorIcon} />}
     </TouchableOpacity>
   );
 }
