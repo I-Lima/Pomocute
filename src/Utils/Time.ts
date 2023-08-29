@@ -1,6 +1,9 @@
 import { useState } from "react";
-
-// The function expects to receive an initialValue corresponding to the time in seconds
+/**
+ * The function receives the time value and returns the formatted count.
+ * @param initialValue @number timer in seconds
+ * @returns @string time count
+ */
 export function useTimer(initialValue: number) {
   const [timeLeft, setTimeLeft] = useState(initialValue);
   const [intervalId, setIntervalId] = useState(Number);
