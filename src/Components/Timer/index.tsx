@@ -100,7 +100,7 @@ function Timer({time, color, functionality}: PropsTimer) {
     switch(functionality) {
       case 'start':
         // handleCounter();
-        handleTime();
+        // handleTime();
         break;
 
       case 'pause':
