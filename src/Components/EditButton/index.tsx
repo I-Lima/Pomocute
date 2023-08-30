@@ -1,34 +1,36 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Colors, Dimension } from "../../Constants";
+import { Colors, Dimension} from "../../Constants/Styles";
 
 interface EditButtonProps {
-  onPressVisible: () => void;
-  visibleOptions: boolean;
   onPressAdd: () => void;
   onPressRemove: () => void;
 }
 
-function EditButton(props: EditButtonProps) {
-  const { onPressVisible, visibleOptions, onPressAdd, onPressRemove } = props;
+function EditButton({ onPressAdd, onPressRemove }: EditButtonProps) {
+  const [isVisible, setIsVisible] = useState(false);
   const size = Dimension.WIDTH / 5;
   const sizeOptions = size - 16;
+
+  const handleComponentVisibility = () => {
+    setIsVisible((prevState) => !prevState);
+  }
 
   return (
     <View style={styles.content}>
       <TouchableOpacity
         style={[styles.buttonEdit, { width: size, height: size }]}
-        onPress={onPressVisible}
+        onPress={handleComponentVisibility}
       >
-        {visibleOptions ? (
+        {isVisible ? (
           <Icon name="close" size={size / 2} color={Colors.YELLOW} />
         ) : (
           <Icon name="edit" size={size / 2} color={Colors.YELLOW} />
         )}
       </TouchableOpacity>
 
-      <View style={{ display: visibleOptions ? "flex" : "none" }}>
+      <View style={{ display: isVisible ? "flex" : "none" }}>
         <TouchableOpacity
           style={[
             styles.buttonRemove,
