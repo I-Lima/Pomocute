@@ -19,7 +19,7 @@ function Timer({time, color, functionality}: PropsTimer) {
     colorBackground = color === 'yellow' ? Colors.BACKGROUND_WHITE : Colors.BACKGROUND_YELLOW,
     colorNumbers = color === 'yellow' ? Colors.WHITE : Colors.YELLOW,
     heightAnimatedTotal = (Dimension.WIDTH / 1.4),
-    heightAnimated = useSharedValue(1),
+    heightAnimated = useSharedValue(heightAnimatedTotal+25),
     waveAnimated = useSharedValue(5),
     timer = 8, // seconds
     circleDiameter = (heightAnimatedTotal*2),
@@ -109,7 +109,7 @@ function Timer({time, color, functionality}: PropsTimer) {
 
       case 'restart':
         clearInterval(timerIntervalId);
-        heightAnimated.value = 1;
+        // heightAnimated.value = heightAnimatedTotal+25;
         break;
 
       default:
