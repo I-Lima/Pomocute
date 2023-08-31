@@ -10,7 +10,7 @@ interface EditButtonProps {
 
 function EditButton({ onPressAdd, onPressRemove }: EditButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const size = Dimension.WIDTH / 5;
+  const size = Dimension.WIDTH / 6;
   const sizeOptions = size - 16;
 
   const handleComponentVisibility = () => {
@@ -24,9 +24,9 @@ function EditButton({ onPressAdd, onPressRemove }: EditButtonProps) {
         onPress={handleComponentVisibility}
       >
         {isVisible ? (
-          <Icon name="close" size={size / 2} color={Colors.YELLOW} />
+          <Icon name="close" size={size / 1.5} color={Colors.YELLOW} />
         ) : (
-          <Icon name="edit" size={size / 2} color={Colors.YELLOW} />
+          <Icon name="edit" size={size / 1.5} color={Colors.YELLOW} />
         )}
       </TouchableOpacity>
 
