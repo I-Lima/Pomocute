@@ -5,12 +5,13 @@ import { Colors, Dimension } from "../../Constants/Styles";
 import ButtonPlay from "../../Components/ButtonPlay";
 import Timer from "../../Components/Timer";
 import ButtonRefresh from "../../Components/ButtonRefresh";
+import EditButton from "../../Components/EditButton";
 interface ButtonPlayRef {
   changeTypeToPlay: () => void;
 }
 
 function Home() {
-  const { formattedTime, startTimer, pauseTimer, resetTimer } = useTimer(8);
+  const { formattedTime, startTimer, pauseTimer, resetTimer, incrementTime, decrementTime } = useTimer(8);
   const [isRunning, setIsRunning] = useState(false);
   const widthHome = isRunning ? {width: Dimension.WIDTH - 50} : null;
   const buttonPlayRef = useRef<ButtonPlayRef>(null);
@@ -51,6 +52,8 @@ function Home() {
 
         {isRunning && <ButtonRefresh color={color} onPressRefresh={handleRefresh} /> }
       </View>
+
+      <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime}  />
     </View>
   );
 };
