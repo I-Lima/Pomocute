@@ -165,7 +165,7 @@ const style = StyleSheet.create({
     width: Dimension.WIDTH,
     position: 'absolute',
     borderWidth: Dimension.WIDTH / 7,
-    borderRadius: Dimension.WIDTH,
+    borderRadius: Dimension.WIDTH / 2.1,
     alignSelf: 'center'
   },
   maskBorder1: {
