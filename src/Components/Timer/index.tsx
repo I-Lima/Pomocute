@@ -140,7 +140,8 @@ function Timer({time, color, functionality}: PropsTimer) {
           fontSize: Dimension.WIDTH / (showCounter ? 4: 6)
         }
       ]}>
-        {showCounter ? counter : time()}
+        {/* {showCounter ? counter : } */}
+        {time()}
       </Text>
 
       <View style={[style.timerBorder, {borderColor: colorBackground}]} />
