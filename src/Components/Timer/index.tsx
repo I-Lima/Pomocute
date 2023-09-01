@@ -19,7 +19,7 @@ function Timer({time, color, functionality}: PropsTimer) {
     colorBackground = color === 'yellow' ? Colors.BACKGROUND_WHITE : Colors.BACKGROUND_YELLOW,
     colorNumbers = color === 'yellow' ? Colors.WHITE : Colors.YELLOW,
     heightAnimatedTotal = (Dimension.WIDTH / 1.4),
-    heightAnimated = useSharedValue(1),
+    heightAnimated = useSharedValue(heightAnimatedTotal+25),
     waveAnimated = useSharedValue(5),
     timer = 8, // seconds
     circleDiameter = (heightAnimatedTotal*2),
@@ -109,7 +109,7 @@ function Timer({time, color, functionality}: PropsTimer) {
 
       case 'restart':
         clearInterval(timerIntervalId);
-        heightAnimated.value = 1;
+        // heightAnimated.value = heightAnimatedTotal+25;
         break;
 
       default:
@@ -140,7 +140,8 @@ function Timer({time, color, functionality}: PropsTimer) {
           fontSize: Dimension.WIDTH / (showCounter ? 4: 6)
         }
       ]}>
-        {showCounter ? counter : time()}
+        {/* {showCounter ? counter : } */}
+        {time()}
       </Text>
 
       <View style={[style.timerBorder, {borderColor: colorBackground}]} />
@@ -165,7 +166,7 @@ const style = StyleSheet.create({
     width: Dimension.WIDTH,
     position: 'absolute',
     borderWidth: Dimension.WIDTH / 7,
-    borderRadius: Dimension.WIDTH,
+    borderRadius: Dimension.WIDTH / 2.1,
     alignSelf: 'center'
   },
   maskBorder1: {
