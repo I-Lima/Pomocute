@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Box } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,22 +9,25 @@ interface PropsAccordion {
   title: string;
   iconName?: string;
   childrenComponent: () => React.ReactNode;
-  hided: boolean;
-  onPress: () => void;
 }
 
 function Accordion(props: PropsAccordion) {
-  const { title, iconName, childrenComponent, hided, onPress } = props;
+  const { title, iconName, childrenComponent } = props;
+  const [hided, setHided] = useState(true);
   const defaultHided = hided ? "flex" : "none";
 
+  const handleVisibility = () => {
+    setHided((prevState) => !prevState);
+  };
+
   return (
-    <TouchableOpacity onPress={onPress} style={styles.touchStyle}>
+    <TouchableOpacity onPress={handleVisibility} style={styles.touchStyle}>
       <Box
         rounded="lg"
         overflow="hidden"
         borderColor="coolGray.300"
         borderWidth="2"
-        width={Dimension.WIDTH - 20}
+        width={Dimension.WIDTH - 10}
         paddingY={2}
       >
         <View style={styles.content}>
