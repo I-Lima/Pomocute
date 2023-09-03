@@ -16,7 +16,7 @@ function Line(props: PropsLines) {
           width: "100%",
           backgroundColor: Colors.BLACK,
           height: DefaultHeight,
-          opacity: 0.8,
+          opacity: 0.2,
           elevation: 3,
         }}
       />
