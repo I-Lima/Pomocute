@@ -16,6 +16,7 @@
     "native-base": "^3.4.19",
     "react": "18.1.0",
     "react-native": "0.70.2",
+    "react-native-device-info": "^10.9.0",
     "react-native-reanimated": "^2.14.4",
     "react-native-safe-area-context": "3.3.2",
     "react-native-svg": "^13.6.0",
