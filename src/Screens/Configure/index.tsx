@@ -8,36 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeBiggerRestTimer, changeFocusTimer, changeRestTimer } from '../../actions/timerActions';
 import { ChangeColor } from '../../actions/colorActions';
 
-interface ColorComponentProps {
-  selected: boolean;
-  color: string;
-  onPress: () => void;
-}
-
-interface InputComponentProps {
-  title: string;
-  value: string;
-  onChangeText: (time: string) => void;
-}
-
-export type colorTypes = 'y' | 'g' | 'p' | 'b';
-
-export interface timerStateProps {
-  focusTimer: number;
-  restTimer: number;
-  biggerRestTimer: number;
-}
-
 function Configure() {
-  const timerState: timerStateProps = useSelector(state => state.timer);
-  const colorState: colorTypes = useSelector(state => state.color);
+  const timerState: TimerTypes.timerStateProps = useSelector(state => state.timer);
+  const colorState: ColorTypes.colorTypes = useSelector(state => state.color);
   const dispatch = useDispatch();
 
   const AccordionTimerChildren = () => {
     const width = Dimension.WIDTH / 4.8,
       height = Dimension.WIDTH / 8;
 
-    const InputComponent = (props: InputComponentProps) => {
+    const InputComponent = (props: TimerTypes.InputComponentProps) => {
       return (
         <View style={{ marginVertical: 6, flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={[Fonts.ROBOTO_BOLD, {color: 'black', fontSize: 18}]}>{props.title}</Text>
@@ -64,7 +44,7 @@ function Configure() {
 
 
   const AccordionColorChildren = () => {
-    const ColorComponent = (props: ColorComponentProps) => {
+    const ColorComponent = (props: ColorTypes.ColorComponentProps) => {
       const size = (Dimension.WIDTH - 10) / 6;
 
       return (
@@ -82,7 +62,7 @@ function Configure() {
       );
     }
 
-    const handleChangeColor = (color: colorTypes ) => {
+    const handleChangeColor = (color: ColorTypes.colorTypes ) => {
       dispatch(ChangeColor(color));
     }
 

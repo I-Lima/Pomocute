@@ -2,13 +2,9 @@ import React, {useState} from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors, Dimension} from "../../Constants/Styles";
+import { EditButtonTypes } from "../../types";
 
-interface EditButtonProps {
-  onPressAdd: () => void;
-  onPressRemove: () => void;
-}
-
-function EditButton({ onPressAdd, onPressRemove }: EditButtonProps) {
+function EditButton({ onPressAdd, onPressRemove }: EditButtonTypes.EditButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
   const size = Dimension.WIDTH / 6;
   const sizeOptions = size - 16;

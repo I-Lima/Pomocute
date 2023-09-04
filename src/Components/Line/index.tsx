@@ -1,12 +1,8 @@
-import { Box } from "native-base";
 import { View } from "react-native";
 import { Colors } from "../../Constants/Styles";
+import { LineTypes } from "../../types";
 
-interface PropsLines {
-  height?: number;
-}
-
-function Line(props: PropsLines) {
+function Line(props: LineTypes.PropsLines) {
   const DefaultHeight = props.height ? props.height : 0.8;
 
   return (
