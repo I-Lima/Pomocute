@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Header from '../../Components/Header';
 import { Colors, Dimension, Fonts } from '../../Constants/Styles';
 import DeviceInfo from 'react-native-device-info';
 import Accordion from '../../Components/Accordion';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeBiggerRestTimer, changeFocusTimer, changeRestTimer } from '../../actions/timerActions';
+import { ChangeColor } from '../../actions/colorActions';
 
 interface ColorComponentProps {
   selected: boolean;
@@ -17,13 +20,18 @@ interface InputComponentProps {
   onChangeText: (time: string) => void;
 }
 
-type colorTypes = 'y' | 'g' | 'p' | 'b';
+export type colorTypes = 'y' | 'g' | 'p' | 'b';
+
+export interface timerStateProps {
+  focusTimer: number;
+  restTimer: number;
+  biggerRestTimer: number;
+}
 
 function Configure() {
-  const [color, setColor] = useState<colorTypes>('y');
-  const [focusTimer, setFocusTimer] = useState('25');
-  const [restTimer, setRestTimer] = useState('5');
-  const [biggerRestTimer, setBiggerRestTimer] = useState('10');
+  const timerState: timerStateProps = useSelector(state => state.timer);
+  const colorState: colorTypes = useSelector(state => state.color);
+  const dispatch = useDispatch();
 
   const AccordionTimerChildren = () => {
     const width = Dimension.WIDTH / 4.8,
@@ -41,11 +49,15 @@ function Configure() {
       );
     }
 
+    const handleFocusTimer = (value: string) => dispatch(changeFocusTimer(value));
+    const handleRestTimer = (value: string) => dispatch(changeRestTimer(value));
+    const handleBiggerRestTimer = (value: string) => dispatch(changeBiggerRestTimer(value));
+
     return (
       <View style={{ justifyContent: 'flex-start'  }} >
-        <InputComponent title='Tempo de foco' value={focusTimer} onChangeText={setFocusTimer} />
-        <InputComponent title='Tempo de descanso' value={restTimer} onChangeText={setRestTimer} />
-        <InputComponent title='Tempo de descanso maior' value={biggerRestTimer} onChangeText={setBiggerRestTimer} />
+        <InputComponent title='Tempo de foco' value={String(timerState.focusTimer/60)} onChangeText={handleFocusTimer} />
+        <InputComponent title='Tempo de descanso' value={String(timerState.restTimer/60)} onChangeText={handleRestTimer} />
+        <InputComponent title='Tempo de descanso maior' value={String(timerState.biggerRestTimer/60)} onChangeText={handleBiggerRestTimer} />
       </View>
     );
   }
@@ -71,7 +83,7 @@ function Configure() {
     }
 
     const handleChangeColor = (color: colorTypes ) => {
-      setColor(color);
+      dispatch(ChangeColor(color));
     }
 
     return (
@@ -81,20 +93,19 @@ function Configure() {
         </Text>
 
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', marginVertical: 20 }} >
-          <ColorComponent selected={color === 'y'} color={Colors.BACKGROUND_YELLOW} onPress={() => handleChangeColor('y')} />
-          <ColorComponent selected={color === 'g'} color={Colors.BACKGROUND_GREEN} onPress={() => handleChangeColor('g')} />
-          <ColorComponent selected={color === 'p'} color={Colors.BACKGROUND_PINK} onPress={() => handleChangeColor('p')} />
-          <ColorComponent selected={color === 'b'} color={Colors.BACKGROUND_BLUE} onPress={() => handleChangeColor('b')} />
+          <ColorComponent selected={colorState.color === 'y'} color={Colors.BACKGROUND_YELLOW} onPress={() => handleChangeColor('y')} />
+          <ColorComponent selected={colorState.color === 'g'} color={Colors.BACKGROUND_GREEN} onPress={() => handleChangeColor('g')} />
+          <ColorComponent selected={colorState.color === 'p'} color={Colors.BACKGROUND_PINK} onPress={() => handleChangeColor('p')} />
+          <ColorComponent selected={colorState.color === 'b'} color={Colors.BACKGROUND_BLUE} onPress={() => handleChangeColor('b')} />
         </View>
       </View>
     );
   }
 
-
   return (
     <View style={styles.container}>
       <View>
-        <Header title='Configuração' backFunction={() => {}} />
+        <Header title='Configuração' backFunction={() => console.log('TIMER', timerState)} />
 
         <View style={{ alignItems: 'center', paddingVertical: 6}} >
           <Accordion title='Tempo' childrenComponent={AccordionTimerChildren} iconName='alarm' />

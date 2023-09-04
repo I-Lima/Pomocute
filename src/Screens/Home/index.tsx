@@ -7,12 +7,14 @@ import Timer from "../../Components/Timer";
 import ButtonRefresh from "../../Components/ButtonRefresh";
 import EditButton from "../../Components/EditButton";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useSelector } from "react-redux";
 interface ButtonPlayRef {
   changeTypeToPlay: () => void;
 }
 
 function Home() {
-  const { formattedTime, startTimer, pauseTimer, resetTimer, incrementTime, decrementTime } = useTimer(8);
+  const timerState = useSelector(state => state.timer);
+  const { formattedTime, startTimer, pauseTimer, resetTimer, incrementTime, decrementTime } = useTimer(timerState.focusTimer);
   const [isRunning, setIsRunning] = useState(false);
   const widthHome = isRunning ? {width: Dimension.WIDTH - 50} : null;
   const buttonPlayRef = useRef<ButtonPlayRef>(null);
