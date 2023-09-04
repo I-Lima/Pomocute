@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Header from '../../Components/Header';
 import { Colors, Dimension, Fonts } from '../../Constants/Styles';
 import DeviceInfo from 'react-native-device-info';
 import Accordion from '../../Components/Accordion';
-
 
 interface ColorComponentProps {
   selected: boolean;
@@ -14,57 +13,39 @@ interface ColorComponentProps {
 
 interface InputComponentProps {
   title: string;
-  value: number;
-  onChangeText: (time: any) => void;
+  value: string;
+  onChangeText: (time: string) => void;
 }
 
 type colorTypes = 'y' | 'g' | 'p' | 'b';
 
 function Configure() {
   const [color, setColor] = useState<colorTypes>('y');
-  const [focusTimer, setFocusTimer] = useState(25);
-  const [restTimer, setRestTimer] = useState(5);
-  const [biggerRestTimer, setBiggerRestTimer] = useState(10);
-
-  useEffect(() => {
-    console.log('FOCUS', focusTimer)
-    console.log('FOCUS', restTimer)
-    console.log('FOCUS', biggerRestTimer)
-  },[focusTimer, restTimer, biggerRestTimer]);
+  const [focusTimer, setFocusTimer] = useState('25');
+  const [restTimer, setRestTimer] = useState('5');
+  const [biggerRestTimer, setBiggerRestTimer] = useState('10');
 
   const AccordionTimerChildren = () => {
     const width = Dimension.WIDTH / 4.8,
       height = Dimension.WIDTH / 8;
 
-      const InputComponent = (props: InputComponentProps) => {
-        return (
-          <View style={{ marginVertical: 6, flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={[Fonts.ROBOTO_BOLD, {color: 'black', fontSize: 18}]}>{props.title}</Text>
+    const InputComponent = (props: InputComponentProps) => {
+      return (
+        <View style={{ marginVertical: 6, flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={[Fonts.ROBOTO_BOLD, {color: 'black', fontSize: 18}]}>{props.title}</Text>
 
-            <View style={{ width, height, backgroundColor: Colors.CUSTOM_LOCAL, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-              <TextInput style={{ fontSize: 30, padding: 2}} editable value={String(props.value)} maxLength={2} keyboardType='numeric' onChangeText={value => props.onChangeText(value)} />
-            </View>
+          <View style={{ width, height, backgroundColor: Colors.CUSTOM_LOCAL, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <TextInput style={{ fontSize: 30, padding: 2, width: '100%', textAlign: 'center' }} value={props.value} maxLength={2} keyboardType='numeric' onChangeText={value => props.onChangeText(value)} />
           </View>
-        );
-      }
-
-      const handleFocusTimer = (time: number) => {
-        setFocusTimer(time);
-      }
-
-      const handleRestTimer = (time: number) => {
-        setRestTimer(time);
-      }
-
-      const handleBiggerRestTimer = (time: number) => {
-        setBiggerRestTimer(time);
-      }
+        </View>
+      );
+    }
 
     return (
       <View style={{ justifyContent: 'flex-start'  }} >
-        <InputComponent title='Tempo de foco' value={focusTimer} onChangeText={handleFocusTimer} />
-        <InputComponent title='Tempo de descanso' value={restTimer} onChangeText={handleRestTimer} />
-        <InputComponent title='Tempo de descanso maior' value={biggerRestTimer} onChangeText={handleBiggerRestTimer} />
+        <InputComponent title='Tempo de foco' value={focusTimer} onChangeText={setFocusTimer} />
+        <InputComponent title='Tempo de descanso' value={restTimer} onChangeText={setRestTimer} />
+        <InputComponent title='Tempo de descanso maior' value={biggerRestTimer} onChangeText={setBiggerRestTimer} />
       </View>
     );
   }
