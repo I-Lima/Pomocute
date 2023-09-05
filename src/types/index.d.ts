@@ -86,6 +86,11 @@ declare namespace HomeTypes {
   export interface ButtonPlayRef {
     changeTypeToPlay: () => void;
   };
+
+  export interface StateType {
+    timer: TimerTypes.timerStateProps;
+    color: {color: ColorTypes.colorTypes};
+  };
 };
 
 declare namespace ColorActionsTypes {

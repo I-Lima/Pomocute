@@ -7,11 +7,14 @@ import Accordion from '../../Components/Accordion';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeBiggerRestTimer, changeFocusTimer, changeRestTimer } from '../../actions/timerActions';
 import { ChangeColor } from '../../actions/colorActions';
+import { ColorTypes, HomeTypes, TimerTypes } from '../../types';
+import { useNavigation } from '@react-navigation/native';
 
 function Configure() {
-  const timerState: TimerTypes.timerStateProps = useSelector(state => state.timer);
-  const colorState: ColorTypes.colorTypes = useSelector(state => state.color);
+  const timerState = useSelector((state: HomeTypes.StateType)  => state.timer);
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const AccordionTimerChildren = () => {
     const width = Dimension.WIDTH / 4.8,
@@ -85,7 +88,7 @@ function Configure() {
   return (
     <View style={styles.container}>
       <View>
-        <Header title='Configuração' backFunction={() => console.log('TIMER', timerState)} />
+        <Header title='Configuração' backFunction={() => navigation.navigate('Home')} />
 
         <View style={{ alignItems: 'center', paddingVertical: 6}} >
           <Accordion title='Tempo' childrenComponent={AccordionTimerChildren} iconName='alarm' />

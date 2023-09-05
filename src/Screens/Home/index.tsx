@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTimer } from "../../Utils/Time";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Dimension } from "../../Constants/Styles";
@@ -9,14 +9,16 @@ import EditButton from "../../Components/EditButton";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useSelector } from "react-redux";
 import { HomeTypes } from "../../types";
+import { useNavigation } from "@react-navigation/native";
 
 function Home() {
-  const timerState = useSelector(state => state.timer);
+  const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
   const { formattedTime, startTimer, pauseTimer, resetTimer, incrementTime, decrementTime } = useTimer(timerState.focusTimer);
   const [isRunning, setIsRunning] = useState(false);
   const widthHome = isRunning ? {width: Dimension.WIDTH - 50} : null;
   const buttonPlayRef = useRef<HomeTypes.ButtonPlayRef>(null);
   const [type, setType] = useState('');
+  const navigation = useNavigation();
   const color = 'white';
 
   const handlePlay = () => {
@@ -44,7 +46,7 @@ function Home() {
   // TO DO: adapt component to restart after timeout.
   return(
     <View style={styles.container}>
-      <TouchableOpacity style={styles.iconButton}>
+      <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate("Config")}>
         <Icon name="settings" size={Dimension.WIDTH / 10} color={Colors.WHITE} />
       </TouchableOpacity>
 
