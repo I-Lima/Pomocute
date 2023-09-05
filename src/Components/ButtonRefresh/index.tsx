@@ -2,13 +2,15 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
-import { ButtonRefreshTypes } from "../../types";
+import { ButtonRefreshTypes, HomeTypes } from "../../types";
+import { useSelector } from "react-redux";
 
 
 function ButtonRefresh(props: ButtonRefreshTypes.PropsComponent) {
   const { color, onPressRefresh } = props;
-  const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
-  const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
+  const colorButton = color === "yellow" ? colorState.currentColor.color : Colors.WHITE;
+  const colorIcon = color === "yellow" ? Colors.WHITE : colorState.currentColor.color;
 
   return (
     <TouchableOpacity

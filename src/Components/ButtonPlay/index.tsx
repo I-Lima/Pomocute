@@ -2,12 +2,14 @@ import React, { useImperativeHandle, useState, Ref } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
-import { ButtonPlayTypes } from "../../types";
+import { ButtonPlayTypes, HomeTypes } from "../../types";
+import { useSelector } from "react-redux";
 
 const ButtonPlay = React.forwardRef((props: ButtonPlayTypes.ButtonPlayProps, ref: Ref<ButtonPlayTypes.ButtonPlayRef>) => {
   const { color, onPressPause, onPressPlay } = props;
-  const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
-  const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
+  const colorButton = color === "yellow" ? colorState.currentColor.color : Colors.WHITE;
+  const colorIcon = color === "yellow" ? Colors.WHITE : colorState.currentColor.color;
   const [buttonType, setButtonType] = useState("play");
 
   useImperativeHandle(ref, () => ({

@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 
 function Home() {
   const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
   const { formattedTime, startTimer, pauseTimer, resetTimer, incrementTime, decrementTime } = useTimer(timerState.focusTimer);
   const [isRunning, setIsRunning] = useState(false);
   const widthHome = isRunning ? {width: Dimension.WIDTH - 50} : null;
@@ -45,7 +46,7 @@ function Home() {
   // TO DO: Create counter before start.
   // TO DO: adapt component to restart after timeout.
   return(
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colorState.currentColor.background}]}>
       <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate("Config")}>
         <Icon name="settings" size={Dimension.WIDTH / 10} color={Colors.WHITE} />
       </TouchableOpacity>
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: Colors.BACKGROUND_YELLOW
   },
   iconButton: {
     flex: 0.18,

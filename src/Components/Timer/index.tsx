@@ -3,16 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 import { Colors, Dimension, Fonts } from "../../Constants/Styles";
 import { Path, Svg } from "react-native-svg";
 import Animated, { Easing, useAnimatedProps, useSharedValue, withTiming } from "react-native-reanimated";
-import { TimerComponentTypes } from "../../types";
+import { HomeTypes, TimerComponentTypes } from "../../types";
+import { useSelector } from "react-redux";
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
  // TO DO: Add the timer value on reducer;
 function Timer({time, color, functionality}: TimerComponentTypes.PropsTimer) {
-  const colorBackgroundCircle = color === 'yellow' ? Colors.YELLOW : Colors.WHITE,
-    colorBackground = color === 'yellow' ? Colors.BACKGROUND_WHITE : Colors.BACKGROUND_YELLOW,
-    colorNumbers = color === 'yellow' ? Colors.WHITE : Colors.YELLOW,
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
+  const colorBackgroundCircle = color === 'yellow' ? colorState.currentColor.color : Colors.WHITE,
+    colorBackground = color === 'yellow' ? Colors.BACKGROUND_WHITE : colorState.currentColor.background,
+    colorNumbers = color === 'yellow' ? Colors.WHITE : colorState.currentColor.color,
     heightAnimatedTotal = (Dimension.WIDTH / 1.4),
     heightAnimated = useSharedValue(heightAnimatedTotal+25),
     waveAnimated = useSharedValue(5),

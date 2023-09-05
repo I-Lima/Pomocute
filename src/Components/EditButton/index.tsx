@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors, Dimension} from "../../Constants/Styles";
-import { EditButtonTypes } from "../../types";
+import { EditButtonTypes, HomeTypes } from "../../types";
+import { useSelector } from "react-redux";
 
 function EditButton({ onPressAdd, onPressRemove }: EditButtonTypes.EditButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
   const size = Dimension.WIDTH / 6;
   const sizeOptions = size - 16;
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
 
   const handleComponentVisibility = () => {
     setIsVisible((prevState) => !prevState);
@@ -20,9 +22,9 @@ function EditButton({ onPressAdd, onPressRemove }: EditButtonTypes.EditButtonPro
         onPress={handleComponentVisibility}
       >
         {isVisible ? (
-          <Icon name="close" size={size / 1.5} color={Colors.YELLOW} />
+          <Icon name="close" size={size / 1.5} color={colorState.currentColor.color} />
         ) : (
-          <Icon name="edit" size={size / 1.5} color={Colors.YELLOW} />
+          <Icon name="edit" size={size / 1.5} color={colorState.currentColor.color} />
         )}
       </TouchableOpacity>
 
@@ -34,7 +36,7 @@ function EditButton({ onPressAdd, onPressRemove }: EditButtonTypes.EditButtonPro
           ]}
           onPress={onPressRemove}
         >
-          <Icon name="remove" size={sizeOptions / 2} color={Colors.YELLOW} />
+          <Icon name="remove" size={sizeOptions / 2} color={colorState.currentColor.color} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -44,7 +46,7 @@ function EditButton({ onPressAdd, onPressRemove }: EditButtonTypes.EditButtonPro
           ]}
           onPress={onPressAdd}
         >
-          <Icon name="add" size={sizeOptions / 2} color={Colors.YELLOW} />
+          <Icon name="add" size={sizeOptions / 2} color={colorState.currentColor.color} />
         </TouchableOpacity>
       </View>
     </View>
