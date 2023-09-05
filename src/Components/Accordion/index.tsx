@@ -4,14 +4,11 @@ import { Box } from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dimension, Fonts, Colors } from "../../Constants/Styles";
 import Line from "../Line";
+import { AccordionTypes } from "../../types";
 
-interface PropsAccordion {
-  title: string;
-  iconName?: string;
-  childrenComponent: () => React.ReactNode;
-}
 
-function Accordion(props: PropsAccordion) {
+
+function Accordion(props: AccordionTypes.AccordionProps) {
   const { title, iconName, childrenComponent } = props;
   const [hided, setHided] = useState(true);
   const defaultHided = hided ? "flex" : "none";

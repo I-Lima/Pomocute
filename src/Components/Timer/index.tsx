@@ -3,18 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 import { Colors, Dimension, Fonts } from "../../Constants/Styles";
 import { Path, Svg } from "react-native-svg";
 import Animated, { Easing, useAnimatedProps, useSharedValue, withTiming } from "react-native-reanimated";
+import { TimerComponentTypes } from "../../types";
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
- interface PropsTimer {
-  time: Function;
-  color: 'yellow' | 'white';
-  functionality: 'start' | 'restart' | 'pause' | string;
- }
-
  // TO DO: Add the timer value on reducer;
-function Timer({time, color, functionality}: PropsTimer) {
+function Timer({time, color, functionality}: TimerComponentTypes.PropsTimer) {
   const colorBackgroundCircle = color === 'yellow' ? Colors.YELLOW : Colors.WHITE,
     colorBackground = color === 'yellow' ? Colors.BACKGROUND_WHITE : Colors.BACKGROUND_YELLOW,
     colorNumbers = color === 'yellow' ? Colors.WHITE : Colors.YELLOW,

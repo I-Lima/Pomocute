@@ -2,12 +2,10 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
-interface PropsComponent {
-  onPressRefresh?: () => void;
-  color: "yellow" | "white";
-};
+import { ButtonRefreshTypes } from "../../types";
 
-function ButtonRefresh(props: PropsComponent) {
+
+function ButtonRefresh(props: ButtonRefreshTypes.PropsComponent) {
   const { color, onPressRefresh } = props;
   const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
   const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;

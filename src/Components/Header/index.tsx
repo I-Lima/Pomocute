@@ -7,13 +7,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dimension, Fonts } from "../../Constants/Styles";
+import { HeaderTypes } from "../../types";
 
-interface PropsComponent {
-  title: string;
-  backFunction: () => void;
-}
-
-function Header(props: PropsComponent) {
+function Header(props: HeaderTypes.PropsComponent) {
   const { title, backFunction } = props;
 
   return (
