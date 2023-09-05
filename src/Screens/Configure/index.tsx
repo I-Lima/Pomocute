@@ -76,10 +76,10 @@ function Configure() {
         </Text>
 
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', marginVertical: 20 }} >
-          <ColorComponent selected={colorState.color === 'y'} color={Colors.BACKGROUND_YELLOW} onPress={() => handleChangeColor('y')} />
-          <ColorComponent selected={colorState.color === 'g'} color={Colors.BACKGROUND_GREEN} onPress={() => handleChangeColor('g')} />
-          <ColorComponent selected={colorState.color === 'p'} color={Colors.BACKGROUND_PINK} onPress={() => handleChangeColor('p')} />
-          <ColorComponent selected={colorState.color === 'b'} color={Colors.BACKGROUND_BLUE} onPress={() => handleChangeColor('b')} />
+          <ColorComponent selected={colorState.color === 'y'} color={Colors.YELLOW} onPress={() => handleChangeColor('y')} />
+          <ColorComponent selected={colorState.color === 'g'} color={Colors.GREEN} onPress={() => handleChangeColor('g')} />
+          <ColorComponent selected={colorState.color === 'p'} color={Colors.PINK} onPress={() => handleChangeColor('p')} />
+          <ColorComponent selected={colorState.color === 'b'} color={Colors.BLUE} onPress={() => handleChangeColor('b')} />
         </View>
       </View>
     );
