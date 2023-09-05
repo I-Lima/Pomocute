@@ -89,7 +89,13 @@ declare namespace HomeTypes {
 
   export interface StateType {
     timer: TimerTypes.timerStateProps;
-    color: {color: ColorTypes.colorTypes};
+    color: {
+      color: ColorTypes.colorTypes,
+      currentColor: {
+        background: 'string',
+        color: 'string'
+      }
+    };
   };
 };
 
