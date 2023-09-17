@@ -26,14 +26,18 @@ export const Dimension = {
 export const Fonts = StyleSheet.create({
   COMFORTAA_BOLD: {
     fontFamily: 'Comfortaa-Bold',
+    color: Colors.BLACK
   },
   ROBOTO_BOLD: {
     fontFamily: 'Roboto-Bold',
+    color: Colors.BLACK
   },
   ROBOTO_MEDIUM: {
     fontFamily: 'Roboto-Medium',
+    color: Colors.BLACK
   },
   ROBOTO_REGULAR: {
     fontFamily: 'Roboto-Regular',
+    color: Colors.BLACK
   },
 });
