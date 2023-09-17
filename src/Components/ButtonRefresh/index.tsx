@@ -5,12 +5,16 @@ import { Colors } from "../../Constants/Styles";
 import { ButtonRefreshTypes, HomeTypes } from "../../types";
 import { useSelector } from "react-redux";
 
-
 function ButtonRefresh(props: ButtonRefreshTypes.PropsComponent) {
-  const { color, onPressRefresh } = props;
+  const { onPressRefresh } = props;
   const colorState = useSelector((state: HomeTypes.StateType) => state.color);
-  const colorButton = color === "yellow" ? colorState.currentColor.color : Colors.WHITE;
-  const colorIcon = color === "yellow" ? Colors.WHITE : colorState.currentColor.color;
+  const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
+  const colorButton = timerState.inFocus
+    ? Colors.WHITE
+    : colorState.currentColor.color;
+  const colorIcon = timerState.inFocus
+    ? colorState.currentColor.color
+    : Colors.WHITE;
 
   return (
     <TouchableOpacity
@@ -20,7 +24,7 @@ function ButtonRefresh(props: ButtonRefreshTypes.PropsComponent) {
       <Icon name="refresh" size={56} color={colorIcon} />
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   buttonContainer: {
