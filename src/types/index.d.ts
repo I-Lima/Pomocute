@@ -1,7 +1,7 @@
 declare module "react-native-waveview";
 declare module "react-native-alarm-notification";
 
-declare namespace TimerTypes {
+export declare namespace TimerTypes {
   export interface InputComponentProps {
     title: string;
     value: string;
@@ -23,7 +23,7 @@ declare namespace TimerTypes {
   }
 }
 
-declare namespace ColorTypes {
+export declare namespace ColorTypes {
   export interface ColorComponentProps {
     selected: boolean;
     color: string;
@@ -33,13 +33,13 @@ declare namespace ColorTypes {
   export type colorTypes = "y" | "g" | "p" | "b";
 }
 
-declare namespace modalTypes {
+export declare namespace modalTypes {
   export interface modalProps {
     modalVisible: boolean;
   }
 }
 
-declare namespace AccordionTypes {
+export declare namespace AccordionTypes {
   export interface AccordionProps {
     title: string;
     iconName?: string;
@@ -47,7 +47,7 @@ declare namespace AccordionTypes {
   }
 }
 
-declare namespace ButtonPlayTypes {
+export declare namespace ButtonPlayTypes {
   export interface ButtonPlayProps {
     onPressPlay?: () => void;
     onPressPause?: () => void;
@@ -58,40 +58,40 @@ declare namespace ButtonPlayTypes {
   }
 }
 
-declare namespace ButtonRefreshTypes {
+export declare namespace ButtonRefreshTypes {
   export interface PropsComponent {
     onPressRefresh?: () => void;
   }
 }
 
-declare namespace EditButtonTypes {
+export declare namespace EditButtonTypes {
   export interface EditButtonProps {
     onPressAdd: () => void;
     onPressRemove: () => void;
   }
 }
 
-declare namespace HeaderTypes {
+export declare namespace HeaderTypes {
   export interface PropsComponent {
     title: string;
     backFunction: () => void;
   }
 }
 
-declare namespace LineTypes {
+export declare namespace LineTypes {
   export interface PropsLines {
     height?: number;
   }
 }
 
-declare namespace TimerComponentTypes {
+export declare namespace TimerComponentTypes {
   export interface PropsTimer {
     time: Function;
     functionality: "start" | "restart" | "pause" | string;
   }
 }
 
-declare namespace HomeTypes {
+export declare namespace HomeTypes {
   export interface ButtonPlayRef {
     changeTypeToPlay: () => void;
   }
@@ -109,7 +109,7 @@ declare namespace HomeTypes {
   }
 }
 
-declare namespace ColorActionsTypes {
+export declare namespace ColorActionsTypes {
   export type ChangeColorType = (value: colorTypes) => {
     type: string;
     payload: { value: colorTypes };
