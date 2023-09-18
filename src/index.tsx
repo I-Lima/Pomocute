@@ -1,30 +1,18 @@
-import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Provider } from "react-redux";
+import appReducer from "./reducers";
+import { createStore } from "redux";
+import Routes from "./routes";
+
+const store = createStore(appReducer);
 
 const Index = () => {
   return (
-    <View>
-      <StatusBar
-        barStyle={"light-content"}
-        backgroundColor="gray"
-      />
-
-      <SafeAreaView style={styles.container} >
-        <Text style={{ fontSize: 40 }}>
-          HOME
-        </Text>
-      </SafeAreaView>
-    </View>
-  );
+    <Provider store={store}>
+      <Routes />
+    </Provider>
+  )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height:'100%',
-    alignItems: 'center',
-    justifyContent: "center"
-  }
-});
 
 export default Index;
