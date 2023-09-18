@@ -4,6 +4,7 @@ import appReducer from "./reducers";
 import { createStore } from "redux";
 import Routes from "./routes";
 import { loadColorStateFromAsyncStorage } from "./reducers/colorReducer";
+import { loadTimerStateFromAsyncStorage } from "./reducers/timerReducer";
 
 const Index = () => {
   const [preloadStates, setPreloadStates] = useState({});
@@ -11,9 +12,12 @@ const Index = () => {
   useEffect(() => {
     const loadAsyncData = async () => {
       try {
-        const data = await loadColorStateFromAsyncStorage();
-        setPreloadStates({color: data});
-      } catch (error) {return; }
+        const dataColor = await loadColorStateFromAsyncStorage();
+        const dataTimer = await loadTimerStateFromAsyncStorage();
+        setPreloadStates({ color: dataColor, timer: dataTimer });
+      } catch (error) {
+        return;
+      }
     };
 
     loadAsyncData();
