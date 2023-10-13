@@ -13,6 +13,7 @@ export declare namespace TimerTypes {
     restTimer: number;
     biggerRestTimer: number;
     inFocus: boolean;
+    cyclesCount: number;
   }
 
   export interface asyncTimerTypes {

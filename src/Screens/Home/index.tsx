@@ -12,7 +12,7 @@ import { HomeTypes } from "../../types";
 import { useNavigation } from "@react-navigation/native";
 import ModalComponent from "../../Components/Modal";
 import { ChangeModalVisible } from "../../actions/modalActions";
-import { changeInFocus } from "../../actions/timerActions";
+import { changeInFocus, clearCyclesCount, updateCyclesCount } from "../../actions/timerActions";
 
 function Home() {
   const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
@@ -42,8 +42,16 @@ function Home() {
     : colorState.currentColor.color;
 
   useEffect(() => {
+    let valueRest: number;
+
+    if(timerState.cyclesCount >= 3) {
+      valueRest = timerState.biggerRestTimer;
+    } else {
+      valueRest = timerState.restTimer;
+    }
+
     setTimer(() => {
-      return timerState.inFocus ? timerState.focusTimer : timerState.restTimer;
+      return timerState.inFocus ? timerState.focusTimer : valueRest;
     });
   }, [timerState]);
 
@@ -74,19 +82,33 @@ function Home() {
     dispatch(changeInFocus(true));
   };
 
+  const cancelClickCycles = () => {
+    dispatch(clearCyclesCount());
+    handleRefresh(true);
+    dispatch(changeInFocus(true));
+  }
+
+  const nextClickCycles = () => {
+    dispatch(changeInFocus(!timerState.inFocus));
+    dispatch(clearCyclesCount());
+    handleRefresh(false);
+  }
+
   const handleNextClick = () => {
     dispatch(ChangeModalVisible(false));
-    handleRefresh(false);
 
     dispatch(changeInFocus(!timerState.inFocus));
-    setTimer(timerState.restTimer);
+
+    if(timerState.inFocus) dispatch(updateCyclesCount());
+
+    // handleRefresh(false);
     handlePlay();
   };
 
   const ChildrenModal = (
     <View style={stylesChildrenModal.container}>
       <Text style={[Fonts.COMFORTAA_BOLD, stylesChildrenModal.title]}>
-        {timerState.inFocus ? "Hora da Pausa" : "Hora do retorno"}
+        {timerState.inFocus ? "Hora da Pausa" : "Hora de focar"}
       </Text>
 
       <View style={stylesChildrenModal.contentButtons}>
@@ -113,36 +135,92 @@ function Home() {
     </View>
   );
 
+  const ContentFinalCycle = () => {
+    return (
+      <View style={styles.content}>
+        <View style={{backgroundColor: color, borderRadius: 8}}>
+            <View style={{ margin: Dimension.WIDTH / 14 }}>
+              <TouchableOpacity
+                onPress={cancelClickCycles}
+                style={{ alignItems: 'flex-end', marginBottom: Dimension.HEIGHT / 24 }}
+              >
+                <Icon name="close" size={36} color='black'/>
+              </TouchableOpacity>
+
+              <View>
+                <View style={{ marginBottom: Dimension.HEIGHT / 14 }}>
+                  <Text style={[Fonts.COMFORTAA_BOLD, {fontSize: 44, textAlign: 'center'}]}>
+                    Parabéns
+                  </Text>
+
+                  <Text style={[Fonts.COMFORTAA_BOLD, {fontSize: 24, textAlign: 'center'}]}>
+                    Você finalizou um ciclo, deseja iniciar um novo ?
+                  </Text>
+                </View>
+
+                <View style={{alignItems: 'center'}}>
+                  <TouchableOpacity
+                    onPress={nextClickCycles}
+                    style={{backgroundColor: backgroundColor, borderRadius: 5 }}
+                  >
+                    <Icon name="skip-next" size={Dimension.WIDTH / 6} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+        </View>
+      </View>
+    );
+  }
+
   // TO DO: Create counter before start.
   // TO DO: adapt component to restart after timeout.
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <TouchableOpacity
         style={styles.iconButton}
-        onPress={() =>  navigation.navigate("Config")} // Navigation.navigate("Config")
+        onPress={() =>  navigation.navigate("Config")}
       >
         <Icon name="settings" size={Dimension.WIDTH / 10} color={color} />
       </TouchableOpacity>
 
-      <View style={styles.content}>
-        <View style={styles.timerComponent}>
-          <Timer time={formattedTime} functionality={type} />
-        </View>
+      {timerState.cyclesCount >=3 ? <ContentFinalCycle /> : (
+        <>
+          <View style={styles.content}>
+            <View style={{ flex: 0.16,}} >
+              {timerState.inFocus ? null : (
+                <Text style={[Fonts.COMFORTAA_BOLD ,{
+                  fontSize: 48,
+                  color: Colors.YELLOW,
+                  borderColor: Colors.BLACK,
+                  textShadowColor: Colors.BLACK,
+                  textShadowOffset: { width: 1.5, height: 1.5 },
+                  textShadowRadius: 1}]}>
+                  Descanso
+                </Text>
+              )}
+            </View>
 
-        <View style={[styles.actionsButtons, widthHome]}>
-          <ButtonPlay
-            onPressPlay={handlePlay}
-            onPressPause={handlePause}
-            ref={buttonPlayRef}
-          />
+            <View style={styles.timerComponent}>
+              <Timer time={formattedTime} functionality={type} />
+            </View>
 
-          {isRunning && (
-            <ButtonRefresh onPressRefresh={() => handleRefresh(true)} />
-          )}
-        </View>
-      </View>
+            <View style={[styles.actionsButtons, widthHome]}>
+              <ButtonPlay
+                onPressPlay={handlePlay}
+                onPressPause={handlePause}
+                ref={buttonPlayRef}
+              />
 
-      <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime} />
+              {isRunning && (
+                <ButtonRefresh onPressRefresh={() => handleRefresh(true)} />
+              )}
+            </View>
+          </View>
+
+          <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime} />
+        </>
+      )}
 
       <ModalComponent children={ChildrenModal} />
     </View>
@@ -156,22 +234,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconButton: {
-    flex: 0.18,
+    flex: 0.8,
     alignSelf: "flex-start",
     margin: 8,
   },
   content: {
     alignItems: "center",
     justifyContent: "space-between",
-    flex: 0.92,
+    flex: 10,
   },
   timerComponent: {
-    flex: 0.63,
+    flex: 0.50,
   },
   actionsButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    flex: 0.38,
+    flex: 0.3,
   },
 });
 
