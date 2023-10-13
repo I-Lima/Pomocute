@@ -139,7 +139,7 @@ function Configure() {
       <View>
         <Header
           title="Configuração"
-          backFunction={() => navigation.navigate("Home")}
+          backFunction={() => navigation.push("Home")}
         />
 
         <View style={styles.content}>
