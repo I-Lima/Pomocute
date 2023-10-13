@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
+  CLEAR_CYCLES_COUNT,
   UPDATE_BIGGER_REST_TIMER,
+  UPDATE_CYCLES_COUNT,
   UPDATE_FOCUS_TIMER,
   UPDATE_REST_TIMER,
   UPDATE_TIMER_STATE,
@@ -12,6 +14,7 @@ const INITIAL_STATE: TimerTypes.timerStateProps = {
   restTimer: 300,
   biggerRestTimer: 600,
   inFocus: true,
+  cyclesCount: 0
 };
 
 export const saveTimerStateToAsyncStorage = async (
@@ -69,6 +72,23 @@ const timerReducer = (
         ...state,
         inFocus: action.payload.value,
       };
+    }
+    case UPDATE_CYCLES_COUNT: {
+      if(state.inFocus) return;
+
+      let value = state.cyclesCount + 1;
+      if(state.cyclesCount === 5) value = 0;
+
+      return {
+        ...state,
+        cyclesCount: value,
+      }
+    }
+    case CLEAR_CYCLES_COUNT:{
+      return {
+        ...state,
+        cyclesCount: 0
+      }
     }
     default:
       return state;
