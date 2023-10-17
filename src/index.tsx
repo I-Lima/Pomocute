@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Provider } from "react-redux";
 import appReducer from "./reducers";
 import { createStore } from "redux";
-import Routes from "./routes";
 import { loadColorStateFromAsyncStorage } from "./reducers/colorReducer";
 import { loadTimerStateFromAsyncStorage } from "./reducers/timerReducer";
+import { NavigationContainer} from "@react-navigation/native";
+import Routes from "./routes";
 
 const Index = () => {
   const [preloadStates, setPreloadStates] = useState({});
+  const navigateRef = useRef(null);
+
+  const navigateToHome = () => {
+    navigateRef.current?.navigate("Home")
+  };
+
+  const loadAsyncData = async () => {
+    try {
+      const dataColor = await loadColorStateFromAsyncStorage();
+      const dataTimer = await loadTimerStateFromAsyncStorage();
+      setPreloadStates({ color: dataColor, timer: dataTimer });
+    } catch (error) {
+      return;
+    }
+
+    navigateToHome()
+  };
 
   useEffect(() => {
-    const loadAsyncData = async () => {
-      try {
-        const dataColor = await loadColorStateFromAsyncStorage();
-        const dataTimer = await loadTimerStateFromAsyncStorage();
-        setPreloadStates({ color: dataColor, timer: dataTimer });
-      } catch (error) {
-        return;
-      }
-    };
-
     loadAsyncData();
   }, []);
 
@@ -27,7 +35,9 @@ const Index = () => {
 
   return (
     <Provider store={store}>
-      <Routes />
+      <NavigationContainer ref={navigateRef}>
+        <Routes />
+      </NavigationContainer>
     </Provider>
   );
 };
