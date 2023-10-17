@@ -71,7 +71,8 @@ function Home() {
     if (buttonPlayRef.current && arg) {
       buttonPlayRef.current.changeTypeToPlay();
     }
-
+    dispatch(clearCyclesCount());
+    dispatch(changeInFocus(true));
     setIsRunning(false);
     setType("restart");
   };
@@ -101,7 +102,7 @@ function Home() {
 
     if(timerState.inFocus) dispatch(updateCyclesCount());
 
-    // handleRefresh(false);
+// handleRefresh(false);
     handlePlay();
   };
 
