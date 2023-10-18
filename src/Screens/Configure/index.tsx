@@ -17,7 +17,7 @@ import {
   changeRestTimer,
 } from "../../actions/timerActions";
 import { ChangeColor } from "../../actions/colorActions";
-import { ColorTypes, HomeTypes, TimerTypes } from "../../types";
+import { ColorTypes, HomeTypes } from "../../types";
 import { useNavigation } from "@react-navigation/native";
 
 function Configure() {
@@ -30,49 +30,59 @@ function Configure() {
     const width = Dimension.WIDTH / 4.8,
       height = Dimension.WIDTH / 8;
 
-    const InputComponent = (props: TimerTypes.InputComponentProps) => {
-      return (
+    const handleFocusTimer = (value: string) => dispatch(changeFocusTimer(value));
+    const handleRestTimer = (value: string) => dispatch(changeRestTimer(value));
+    const handleBiggerRestTimer = (value: string) => dispatch(changeBiggerRestTimer(value));
+
+    return (
+      <View style={stylesAccordionTimer.content}>
         <View style={stylesAccordionTimer.container}>
           <Text style={[Fonts.ROBOTO_BOLD, stylesAccordionTimer.title]}>
-            {props.title}
+            Tempo de foco
           </Text>
 
           <View style={[stylesAccordionTimer.contentInput, { width, height }]}>
             <TextInput
               style={stylesAccordionTimer.input}
-              value={props.value}
+              value={String(timerState.focusTimer / 60)}
               maxLength={2}
               keyboardType="numeric"
-              onChangeText={(value) => props.onChangeText(value)}
+              onChangeText={handleFocusTimer}
             />
           </View>
         </View>
-      );
-    };
 
-    const handleFocusTimer = (value: string) =>
-      dispatch(changeFocusTimer(value));
-    const handleRestTimer = (value: string) => dispatch(changeRestTimer(value));
-    const handleBiggerRestTimer = (value: string) =>
-      dispatch(changeBiggerRestTimer(value));
+        <View style={stylesAccordionTimer.container}>
+          <Text style={[Fonts.ROBOTO_BOLD, stylesAccordionTimer.title]}>
+            Tempo de descanso
+          </Text>
 
-    return (
-      <View style={stylesAccordionTimer.content}>
-        <InputComponent
-          title="Tempo de foco"
-          value={String(timerState.focusTimer / 60)}
-          onChangeText={handleFocusTimer}
-        />
-        <InputComponent
-          title="Tempo de descanso"
-          value={String(timerState.restTimer / 60)}
-          onChangeText={handleRestTimer}
-        />
-        <InputComponent
-          title="Tempo de descanso maior"
-          value={String(timerState.biggerRestTimer / 60)}
-          onChangeText={handleBiggerRestTimer}
-        />
+          <View style={[stylesAccordionTimer.contentInput, { width, height }]}>
+            <TextInput
+              style={stylesAccordionTimer.input}
+              value={String(timerState.restTimer / 60)}
+              maxLength={2}
+              keyboardType="numeric"
+              onChangeText={handleRestTimer}
+            />
+          </View>
+        </View>
+
+        <View style={stylesAccordionTimer.container}>
+          <Text style={[Fonts.ROBOTO_BOLD, stylesAccordionTimer.title]}>
+            Tempo de descanso maior
+          </Text>
+
+          <View style={[stylesAccordionTimer.contentInput, { width, height }]}>
+            <TextInput
+              style={stylesAccordionTimer.input}
+              value={String(timerState.biggerRestTimer / 60)}
+              maxLength={2}
+              keyboardType="numeric"
+              onChangeText={handleBiggerRestTimer}
+            />
+          </View>
+        </View>
       </View>
     );
   };
