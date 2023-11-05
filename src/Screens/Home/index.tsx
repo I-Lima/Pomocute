@@ -192,7 +192,7 @@ function Home() {
               {timerState.inFocus ? null : (
                 <Text style={[Fonts.COMFORTAA_BOLD ,{
                   fontSize: 48,
-                  color: Colors.YELLOW,
+                  color: color,
                   borderColor: Colors.BLACK,
                   textShadowColor: Colors.BLACK,
                   textShadowOffset: { width: 1.5, height: 1.5 },
