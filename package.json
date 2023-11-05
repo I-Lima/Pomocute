@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "bundle:android": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "bundle-android": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "reset": "react-native start --reset-cache",
-    "run-android-release": "bash ./scripts/android-release.sh",
+    "android-release": "react-native run-android --variant=release",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
