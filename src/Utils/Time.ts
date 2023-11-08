@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ChangeModalVisible } from "../actions/modalActions";
+import BackgroundTimer from 'react-native-background-timer';
 
 /**
  * The function receives the time value and returns the formatted count.
@@ -9,7 +10,6 @@ import { ChangeModalVisible } from "../actions/modalActions";
  */
 export function useTimer(initialValue: number) {
   const [timeLeft, setTimeLeft] = useState(initialValue);
-  const [intervalId, setIntervalId] = useState(Number);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,29 +17,27 @@ export function useTimer(initialValue: number) {
   }, [initialValue]);
 
   function startTimer(): void {
-    const id = setInterval(() => {
+    BackgroundTimer.runBackgroundTimer(() => {
       setTimeLeft((prevTime) => {
         if (prevTime === 0) {
           dispatch(ChangeModalVisible(true));
-          clearInterval(id);
+          BackgroundTimer.stopBackgroundTimer();
           return prevTime;
         }
 
         return prevTime - 1;
       });
     }, 1000);
-
-    setIntervalId(id);
   }
 
   function pauseTimer(): void {
-    clearInterval(intervalId);
+    BackgroundTimer.stopBackgroundTimer();
   }
 
   function resetTimer(): void {
     setTimeLeft(initialValue);
 
-    clearInterval(intervalId);
+    BackgroundTimer.stopBackgroundTimer();
   }
 
   function incrementTime(): void {
