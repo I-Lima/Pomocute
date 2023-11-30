@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTimer } from "../../Utils/Time";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors, Dimension, Fonts } from "../../Constants/Styles";
@@ -13,6 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import ModalComponent from "../../Components/Modal";
 import { ChangeModalVisible } from "../../actions/modalActions";
 import { changeInFocus, clearCyclesCount, updateCyclesCount } from "../../actions/timerActions";
+import { ContentFinalCycle } from "./Components/ContentFinalCycle";
+import { ChildrenModal } from "./Components/ChildrenModal";
 
 function Home() {
   const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
@@ -30,9 +32,9 @@ function Home() {
   } = useTimer(timer);
   const [isRunning, setIsRunning] = useState(false);
   const [type, setType] = useState("");
+  const [buttonIsPlay, setButtonIsPlay] = useState(true);
 
   const widthHome = isRunning ? { width: Dimension.WIDTH - 50 } : null;
-  const buttonPlayRef = useRef<HomeTypes.ButtonPlayRef>(null);
   const navigation = useNavigation();
   const backgroundColor = timerState.inFocus
     ? colorState.currentColor.background
@@ -59,18 +61,19 @@ function Home() {
     setIsRunning(true);
     startTimer();
     setType("start");
+    setButtonIsPlay(false);
   };
 
   const handlePause = () => {
     pauseTimer();
+    setButtonIsPlay(true);
   };
 
   const handleRefresh = (arg: boolean) => {
     resetTimer();
 
-    if (buttonPlayRef.current && arg) {
-      buttonPlayRef.current.changeTypeToPlay();
-    }
+    if(arg) setButtonIsPlay(true);
+
     dispatch(clearCyclesCount());
     dispatch(changeInFocus(true));
     setIsRunning(false);
@@ -83,96 +86,22 @@ function Home() {
     dispatch(changeInFocus(true));
   };
 
-  const cancelClickCycles = () => {
-    dispatch(clearCyclesCount());
-    handleRefresh(true);
-    dispatch(changeInFocus(true));
-  }
 
   const nextClickCycles = () => {
-    dispatch(changeInFocus(!timerState.inFocus));
+    dispatch(ChangeModalVisible(false));
     dispatch(clearCyclesCount());
-    handleRefresh(false);
+    dispatch(changeInFocus(!timerState.inFocus));
+    // handlePlay();
   }
 
   const handleNextClick = () => {
     dispatch(ChangeModalVisible(false));
-
     dispatch(changeInFocus(!timerState.inFocus));
 
     if(timerState.inFocus) dispatch(updateCyclesCount());
 
-// handleRefresh(false);
-    handlePlay();
+    if(timerState.cyclesCount < 0) handlePlay();
   };
-
-  const ChildrenModal = (
-    <View style={stylesChildrenModal.container}>
-      <Text style={[Fonts.COMFORTAA_BOLD, stylesChildrenModal.title]}>
-        {timerState.inFocus ? "Hora da Pausa" : "Hora de focar"}
-      </Text>
-
-      <View style={stylesChildrenModal.contentButtons}>
-        <TouchableOpacity onPress={handleCancelClick}>
-          <Text
-            style={[Fonts.ROBOTO_REGULAR, stylesChildrenModal.cancelButton]}
-          >
-            Cancelar
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            stylesChildrenModal.goButton,
-            { backgroundColor: colorState.currentColor.background },
-          ]}
-          onPress={handleNextClick}
-        >
-          <Text style={[Fonts.ROBOTO_MEDIUM, stylesChildrenModal.goButtonText]}>
-            Seguir
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
-  const ContentFinalCycle = () => {
-    return (
-      <View style={styles.content}>
-        <View style={{backgroundColor: color, borderRadius: 8}}>
-            <View style={{ margin: Dimension.WIDTH / 14 }}>
-              <TouchableOpacity
-                onPress={cancelClickCycles}
-                style={{ alignItems: 'flex-end', marginBottom: Dimension.HEIGHT / 24 }}
-              >
-                <Icon name="close" size={36} color='black'/>
-              </TouchableOpacity>
-
-              <View>
-                <View style={{ marginBottom: Dimension.HEIGHT / 14 }}>
-                  <Text style={[Fonts.COMFORTAA_BOLD, {fontSize: 44, textAlign: 'center'}]}>
-                    Parabéns
-                  </Text>
-
-                  <Text style={[Fonts.COMFORTAA_BOLD, {fontSize: 24, textAlign: 'center'}]}>
-                    Você finalizou um ciclo, deseja iniciar um novo ?
-                  </Text>
-                </View>
-
-                <View style={{alignItems: 'center'}}>
-                  <TouchableOpacity
-                    onPress={nextClickCycles}
-                    style={{backgroundColor: backgroundColor, borderRadius: 5 }}
-                  >
-                    <Icon name="skip-next" size={Dimension.WIDTH / 6} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-        </View>
-      </View>
-    );
-  }
 
   // TO DO: Create counter before start.
   // TO DO: adapt component to restart after timeout.
@@ -185,8 +114,16 @@ function Home() {
         <Icon name="settings" size={Dimension.WIDTH / 10} color={color} />
       </TouchableOpacity>
 
-      {timerState.cyclesCount >=3 ? <ContentFinalCycle /> : (
-        <>
+      {/* { timerState.cyclesCount >=1 ? (
+        <View style={{ flex: 5, alignItems: "center", justifyContent: "flex-start"}}>
+          <ContentFinalCycle
+            cancelPress={handleRefresh}
+            nextPress={nextClickCycles}
+            backgroundColor={backgroundColor}
+            color={color}
+          />
+        </View>
+      ) : ( */}
           <View style={styles.content}>
             <View style={{ flex: 0.16,}} >
               {timerState.inFocus ? null : (
@@ -210,7 +147,7 @@ function Home() {
               <ButtonPlay
                 onPressPlay={handlePlay}
                 onPressPause={handlePause}
-                ref={buttonPlayRef}
+                isPlay={buttonIsPlay}
               />
 
               {isRunning && (
@@ -220,10 +157,17 @@ function Home() {
           </View>
 
           <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime} />
-        </>
-      )}
+      {/* )} */}
 
-      <ModalComponent children={ChildrenModal} />
+      <ModalComponent
+        children={
+          <ChildrenModal
+            inFocus={timerState.inFocus}
+            backgroundColor={colorState.currentColor.background}
+            handleCancelClick={handleCancelClick}
+            handleNextClick={handleNextClick}
+          />
+        } />
     </View>
   );
 }
@@ -251,49 +195,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 0.3,
-  },
-});
-
-const stylesChildrenModal = StyleSheet.create({
-  container: {
-    height: Dimension.HEIGHT / 3.4,
-    width: Dimension.WIDTH / 1.2,
-    backgroundColor: Colors.WHITE,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "space-between",
-    paddingTop: 10,
-    paddingBottom: 15,
-    paddingHorizontal: 12,
-    borderRadius: 5,
-    borderWidth: 0.8,
-    marginTop: Dimension.HEIGHT / 4,
-    elevation: 2,
-  },
-  title: {
-    fontSize: Dimension.WIDTH / 8.5,
-    textAlign: "center",
-  },
-  contentButtons: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    alignItems: "flex-end",
-  },
-  cancelButton: {
-    textDecorationLine: "underline",
-    fontSize: Dimension.WIDTH / 24,
-  },
-  goButton: {
-    borderRadius: 5,
-    borderColor: Colors.BLACK,
-    borderWidth: 0.8,
-  },
-  goButtonText: {
-    fontSize: Dimension.WIDTH / 18,
-    marginVertical: 8,
-    marginHorizontal: 10,
   },
 });
 
