@@ -11,11 +11,10 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "prettier/prettier": true,
+        "prettier/prettier": "warn",
         "@typescript-eslint/no-shadow": ["error"],
         "no-shadow": "off",
         "no-undef": "off",
-        "includeExports": true,
         "capitalized-comments": [
           "error",
           "always",
@@ -25,7 +24,7 @@
           }
       ],
       "semi": ["error", "always"],
-      "quotes": ["error", "single"],
+      "quotes": ["error", "double"],
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "no-console": "warn"

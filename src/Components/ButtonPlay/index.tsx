@@ -1,44 +1,38 @@
-import React, { useImperativeHandle, useState, Ref } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Colors } from "../../Constants/Styles";
-import { ButtonPlayTypes } from "../../types";
+import { ButtonPlayTypes, HomeTypes } from "../../types";
+import { useSelector } from "react-redux";
 
-const ButtonPlay = React.forwardRef((props: ButtonPlayTypes.ButtonPlayProps, ref: Ref<ButtonPlayTypes.ButtonPlayRef>) => {
-  const { color, onPressPause, onPressPlay } = props;
-  const colorButton = color === "yellow" ? Colors.YELLOW : Colors.WHITE;
-  const colorIcon = color === "yellow" ? Colors.WHITE : Colors.YELLOW;
-  const [buttonType, setButtonType] = useState("play");
+const ButtonPlay = (
+    props: ButtonPlayTypes.ButtonPlayProps,
+  ) => {
+  const { onPressPause, onPressPlay, isPlay } = props;
+  const colorState = useSelector((state: HomeTypes.StateType) => state.color);
+  const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
+  const colorButton = timerState.inFocus
+    ? Colors.WHITE
+    : colorState.currentColor.color;
+  const colorIcon = timerState.inFocus
+    ? colorState.currentColor.color
+    : Colors.WHITE;
 
-  useImperativeHandle(ref, () => ({
-    changeTypeToPlay: () => {
-      setButtonType("play");
-    },
-  }));
-
-  const handlePress = () => {
-    if (buttonType === "play") {
-      setButtonType("pause");
-
-      if (onPressPlay) onPressPlay();
-    } else {
-      setButtonType("play");
-
-      if (onPressPause) onPressPause();
-    }
-  };
+  const handlePress = () => (isPlay ? onPressPlay() : onPressPause());
 
   return (
     <TouchableOpacity
       onPress={handlePress}
       style={[styles.buttonContainer, { backgroundColor: colorButton }]}
     >
-      {buttonType === "play" && <Icon name="play" size={56} color={colorIcon} />}
-
-      {buttonType === "pause" && <Icon name="pause" size={70} color={colorIcon} />}
+      {isPlay ? (
+        <Icon name="play" size={56} color={colorIcon} />
+      ) : (
+        <Icon name="pause" size={70} color={colorIcon} />
+      )}
     </TouchableOpacity>
   );
-});
+}
 
 const styles = StyleSheet.create({
   buttonContainer: {
