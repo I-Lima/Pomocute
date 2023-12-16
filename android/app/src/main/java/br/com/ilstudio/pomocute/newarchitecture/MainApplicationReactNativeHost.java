@@ -1,4 +1,4 @@
-package com.pomocute.newarchitecture;
+package br.com.ilstudio.pomocute.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.pomocute.BuildConfig;
-import com.pomocute.newarchitecture.components.MainComponentsRegistry;
-import com.pomocute.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import br.com.ilstudio.pomocute.BuildConfig;
+import br.com.ilstudio.pomocute.newarchitecture.components.MainComponentsRegistry;
+import br.com.ilstudio.pomocute.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

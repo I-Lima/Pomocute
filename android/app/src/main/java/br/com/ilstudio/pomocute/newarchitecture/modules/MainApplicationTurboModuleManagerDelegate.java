@@ -1,4 +1,4 @@
-package com.pomocute.newarchitecture.modules;
+package br.com.ilstudio.pomocute.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
