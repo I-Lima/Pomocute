@@ -17,7 +17,7 @@ The prototype showcases the app's interface, components, and color palette.
 
 ## User Needs and Software Requirements
 
-[Document Link](https://docs.google.com/document/d/1uhMJSbENiGtFhuybQojOMDzJ6dCHOt-UeCvniPRtf70/edit?usp=sharing)
+[Document Link](https://drive.google.com/file/d/16-7RF1g7K0XVfns5gybkrTUmNJ-AiuvT/view?usp=sharing)
 
 ## How to Run the App
 
