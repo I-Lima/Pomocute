@@ -50,8 +50,9 @@ export declare namespace AccordionTypes {
 
 export declare namespace ButtonPlayTypes {
   export interface ButtonPlayProps {
-    onPressPlay?: () => void;
-    onPressPause?: () => void;
+    onPressPlay: () => void;
+    onPressPause: () => void;
+    isPlay: boolean;
   }
 
   export interface ButtonPlayRef {

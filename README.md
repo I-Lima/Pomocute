@@ -15,7 +15,7 @@ The prototype showcases the app's interface, components, and color palette.
 
 [Prototype Link](https://www.figma.com/file/Z1sibEdllMCY8VdhwJRBbP/Pomocute?type=design&node-id=0%3A1&mode=design&t=pCrg2okKozaDqSlA-1)
 
-## User Needs and Software Requirements
+## Software Requirements
 
 [Document Link](https://drive.google.com/file/d/16-7RF1g7K0XVfns5gybkrTUmNJ-AiuvT/view?usp=sharing)
 
