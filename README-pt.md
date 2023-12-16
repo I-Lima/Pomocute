@@ -13,7 +13,7 @@ O projeto foi desenvolvido para aprimorar o conhecimento em React Native e Types
 ## Protótipo
 O protótipo apresenta a interface, os componentes e a paleta de cores do aplicativo.
 
-[Link do protótipo](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
+[Link do protótipo](https://www.figma.com/file/Z1sibEdllMCY8VdhwJRBbP/Pomocute?type=design&node-id=0%3A1&mode=design&t=pCrg2okKozaDqSlA-1)
 
 ## Necessidades do usuário e requisitos do software
 [Link para o documento](https://drive.google.com/file/d/16-7RF1g7K0XVfns5gybkrTUmNJ-AiuvT/view?usp=sharing)
