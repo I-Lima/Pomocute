@@ -16,7 +16,8 @@ O protótipo apresenta a interface, os componentes e a paleta de cores do aplica
 [Link do protótipo](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
 
 ## Necessidades do usuário e requisitos do software
-[Link para o documento](https://docs.google.com/document/d/1uhMJSbENiGtFhuybQojOMDzJ6dCHOt-UeCvniPRtf70/edit?usp=sharing)
+[Link para o documento](https://drive.google.com/file/d/16-7RF1g7K0XVfns5gybkrTUmNJ-AiuvT/view?usp=sharing)
+
 
 ## Como executar o aplicativo
 Siga os passos abaixo para executar o aplicativo em sua máquina local:
