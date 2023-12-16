@@ -13,7 +13,7 @@ export const ChildrenModal = ({
   inFocus,
   backgroundColor,
   handleCancelClick,
-  handleNextClick
+  handleNextClick,
 }: ChildrenModalProps) => (
   <View style={styles.container}>
     <Text style={[Fonts.COMFORTAA_BOLD, styles.title]}>
@@ -22,23 +22,16 @@ export const ChildrenModal = ({
 
     <View style={styles.contentButtons}>
       <TouchableOpacity onPress={handleCancelClick}>
-        <Text
-          style={[Fonts.ROBOTO_REGULAR, styles.cancelButton]}
-        >
+        <Text style={[Fonts.ROBOTO_REGULAR, styles.cancelButton]}>
           Cancelar
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[
-          styles.goButton,
-          { backgroundColor: backgroundColor },
-        ]}
+        style={[styles.goButton, { backgroundColor: backgroundColor }]}
         onPress={handleNextClick}
       >
-        <Text style={[Fonts.ROBOTO_MEDIUM, styles.goButtonText]}>
-          Seguir
-        </Text>
+        <Text style={[Fonts.ROBOTO_MEDIUM, styles.goButtonText]}>Seguir</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -73,7 +66,7 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     textDecorationLine: "underline",
-    fontSize: Dimension.WIDTH / 24,
+    fontSize: Dimension.WIDTH / 18,
   },
   goButton: {
     borderRadius: 5,

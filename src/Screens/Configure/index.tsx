@@ -30,9 +30,11 @@ function Configure() {
     const width = Dimension.WIDTH / 4.8,
       height = Dimension.WIDTH / 8;
 
-    const handleFocusTimer = (value: string) => dispatch(changeFocusTimer(value));
+    const handleFocusTimer = (value: string) =>
+      dispatch(changeFocusTimer(value));
     const handleRestTimer = (value: string) => dispatch(changeRestTimer(value));
-    const handleBiggerRestTimer = (value: string) => dispatch(changeBiggerRestTimer(value));
+    const handleBiggerRestTimer = (value: string) =>
+      dispatch(changeBiggerRestTimer(value));
 
     return (
       <View style={stylesAccordionTimer.content}>
@@ -104,6 +106,7 @@ function Configure() {
             },
           ]}
           onPress={props.onPress}
+          accessibilityLabel={props.accessibilityLabel}
         />
       );
     };
@@ -123,21 +126,25 @@ function Configure() {
             selected={colorState.color === "y"}
             color={Colors.YELLOW}
             onPress={() => handleChangeColor("y")}
+            accessibilityLabel="Seleção de cor amarela"
           />
           <ColorComponent
             selected={colorState.color === "g"}
             color={Colors.GREEN}
             onPress={() => handleChangeColor("g")}
+            accessibilityLabel="Seleção de cor verde"
           />
           <ColorComponent
             selected={colorState.color === "p"}
             color={Colors.PINK}
             onPress={() => handleChangeColor("p")}
+            accessibilityLabel="Seleção de cor rosa"
           />
           <ColorComponent
             selected={colorState.color === "b"}
             color={Colors.BLUE}
             onPress={() => handleChangeColor("b")}
+            accessibilityLabel="Seleção de cor azul"
           />
         </View>
       </View>
