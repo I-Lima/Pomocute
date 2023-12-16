@@ -1,10 +1,5 @@
-import {
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dimension, Fonts } from "../../Constants/Styles";
 import { HeaderTypes } from "../../types";
@@ -20,7 +15,7 @@ function Header(props: HeaderTypes.PropsComponent) {
         </Text>
 
         <TouchableOpacity onPress={backFunction}>
-          <Icon name="close" size={32} color="black" />
+          <Icon name="close" size={48} color="black" />
         </TouchableOpacity>
       </View>
 

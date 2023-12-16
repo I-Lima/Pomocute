@@ -12,7 +12,11 @@ import { HomeTypes } from "../../types";
 import { useNavigation } from "@react-navigation/native";
 import ModalComponent from "../../Components/Modal";
 import { ChangeModalVisible } from "../../actions/modalActions";
-import { changeInFocus, clearCyclesCount, updateCyclesCount } from "../../actions/timerActions";
+import {
+  changeInFocus,
+  clearCyclesCount,
+  updateCyclesCount,
+} from "../../actions/timerActions";
 import { ContentFinalCycle } from "./Components/ContentFinalCycle";
 import { ChildrenModal } from "./Components/ChildrenModal";
 
@@ -46,7 +50,7 @@ function Home() {
   useEffect(() => {
     let valueRest: number;
 
-    if(timerState.cyclesCount >= 3) {
+    if (timerState.cyclesCount >= 3) {
       valueRest = timerState.biggerRestTimer;
     } else {
       valueRest = timerState.restTimer;
@@ -72,7 +76,9 @@ function Home() {
   const handleRefresh = (arg: boolean) => {
     resetTimer();
 
-    if(arg) setButtonIsPlay(true);
+    if (arg) {
+      setButtonIsPlay(true);
+    }
 
     dispatch(clearCyclesCount());
     dispatch(changeInFocus(true));
@@ -86,21 +92,24 @@ function Home() {
     dispatch(changeInFocus(true));
   };
 
-
   const nextClickCycles = () => {
     dispatch(ChangeModalVisible(false));
     dispatch(clearCyclesCount());
     dispatch(changeInFocus(!timerState.inFocus));
-    // handlePlay();
-  }
+    // HandlePlay();
+  };
 
   const handleNextClick = () => {
     dispatch(ChangeModalVisible(false));
     dispatch(changeInFocus(!timerState.inFocus));
 
-    if(timerState.inFocus) dispatch(updateCyclesCount());
+    if (timerState.inFocus) {
+      dispatch(updateCyclesCount());
+    }
 
-    if(timerState.cyclesCount < 0) handlePlay();
+    if (timerState.cyclesCount < 0) {
+      handlePlay();
+    }
   };
 
   // TO DO: Create counter before start.
@@ -109,9 +118,9 @@ function Home() {
     <View style={[styles.container, { backgroundColor }]}>
       <TouchableOpacity
         style={styles.iconButton}
-        onPress={() =>  navigation.navigate("Config")}
+        onPress={() => navigation.navigate("Config")}
       >
-        <Icon name="settings" size={Dimension.WIDTH / 10} color={color} />
+        <Icon name="settings" size={Dimension.WIDTH / 8} color={color} />
       </TouchableOpacity>
 
       {/* { timerState.cyclesCount >=1 ? (
@@ -124,39 +133,45 @@ function Home() {
           />
         </View>
       ) : ( */}
-          <View style={styles.content}>
-            <View style={{ flex: 0.16,}} >
-              {timerState.inFocus ? null : (
-                <Text style={[Fonts.COMFORTAA_BOLD ,{
+      <View style={styles.content}>
+        <View style={{ flex: 0.16 }}>
+          {timerState.inFocus ? null : (
+            <Text
+              style={[
+                Fonts.COMFORTAA_BOLD,
+                {
                   fontSize: 48,
                   color: color,
                   borderColor: Colors.BLACK,
                   textShadowColor: Colors.BLACK,
                   textShadowOffset: { width: 1.5, height: 1.5 },
-                  textShadowRadius: 1}]}>
-                  Descanso
-                </Text>
-              )}
-            </View>
+                  textShadowRadius: 1,
+                },
+              ]}
+            >
+              Descanso
+            </Text>
+          )}
+        </View>
 
-            <View style={styles.timerComponent}>
-              <Timer time={formattedTime} functionality={type} />
-            </View>
+        <View style={styles.timerComponent}>
+          <Timer time={formattedTime} functionality={type} />
+        </View>
 
-            <View style={[styles.actionsButtons, widthHome]}>
-              <ButtonPlay
-                onPressPlay={handlePlay}
-                onPressPause={handlePause}
-                isPlay={buttonIsPlay}
-              />
+        <View style={[styles.actionsButtons, widthHome]}>
+          <ButtonPlay
+            onPressPlay={handlePlay}
+            onPressPause={handlePause}
+            isPlay={buttonIsPlay}
+          />
 
-              {isRunning && (
-                <ButtonRefresh onPressRefresh={() => handleRefresh(true)} />
-              )}
-            </View>
-          </View>
+          {isRunning && (
+            <ButtonRefresh onPressRefresh={() => handleRefresh(true)} />
+          )}
+        </View>
+      </View>
 
-          <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime} />
+      <EditButton onPressAdd={incrementTime} onPressRemove={decrementTime} />
       {/* )} */}
 
       <ModalComponent
@@ -167,7 +182,8 @@ function Home() {
             handleCancelClick={handleCancelClick}
             handleNextClick={handleNextClick}
           />
-        } />
+        }
+      />
     </View>
   );
 }
@@ -189,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 10,
   },
   timerComponent: {
-    flex: 0.50,
+    flex: 0.5,
   },
   actionsButtons: {
     flexDirection: "row",

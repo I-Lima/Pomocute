@@ -29,6 +29,7 @@ export declare namespace ColorTypes {
     selected: boolean;
     color: string;
     onPress: () => void;
+    accessibilityLabel: string;
   }
 
   export type colorTypes = "y" | "g" | "p" | "b";
