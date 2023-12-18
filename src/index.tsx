@@ -4,7 +4,7 @@ import appReducer from "./reducers";
 import { createStore } from "redux";
 import { loadColorStateFromAsyncStorage } from "./reducers/colorReducer";
 import { loadTimerStateFromAsyncStorage } from "./reducers/timerReducer";
-import { NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import Routes from "./routes";
 
 const Index = () => {
@@ -12,7 +12,7 @@ const Index = () => {
   const navigateRef = useRef(null);
 
   const navigateToHome = () => {
-    navigateRef.current?.navigate("Home")
+    navigateRef.current?.navigate("Home");
   };
 
   const loadAsyncData = async () => {
@@ -24,11 +24,12 @@ const Index = () => {
       return;
     }
 
-    navigateToHome()
+    navigateToHome();
   };
 
   useEffect(() => {
     loadAsyncData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const store = createStore(appReducer, preloadStates);

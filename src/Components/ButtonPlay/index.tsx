@@ -5,9 +5,7 @@ import { Colors } from "../../Constants/Styles";
 import { ButtonPlayTypes, HomeTypes } from "../../types";
 import { useSelector } from "react-redux";
 
-const ButtonPlay = (
-    props: ButtonPlayTypes.ButtonPlayProps,
-  ) => {
+const ButtonPlay = (props: ButtonPlayTypes.ButtonPlayProps) => {
   const { onPressPause, onPressPlay, isPlay } = props;
   const colorState = useSelector((state: HomeTypes.StateType) => state.color);
   const timerState = useSelector((state: HomeTypes.StateType) => state.timer);
@@ -32,7 +30,7 @@ const ButtonPlay = (
       )}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

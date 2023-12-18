@@ -7,13 +7,16 @@ function Line(props: LineTypes.PropsLines) {
   const DefaultHeight = props.height ? props.height : 0.8;
 
   return (
-    <View style={{ elevation: 10 }}>
+    <View style={styles.container}>
       <View style={[styles.Line, { height: DefaultHeight }]} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    elevation: 10,
+  },
   Line: {
     width: "100%",
     backgroundColor: Colors.BLACK,

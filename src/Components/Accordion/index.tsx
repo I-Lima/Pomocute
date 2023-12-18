@@ -6,8 +6,6 @@ import { Dimension, Fonts, Colors } from "../../Constants/Styles";
 import Line from "../Line";
 import { AccordionTypes } from "../../types";
 
-
-
 function Accordion(props: AccordionTypes.AccordionProps) {
   const { title, iconName, childrenComponent } = props;
   const [hided, setHided] = useState(true);
