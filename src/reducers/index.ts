@@ -6,7 +6,7 @@ import modalReducer from "./modalReducer";
 const appReducer = combineReducers({
   timer: timerReducer,
   color: colorReducer,
-  modal: modalReducer
+  modal: modalReducer,
 });
 
 export default appReducer;

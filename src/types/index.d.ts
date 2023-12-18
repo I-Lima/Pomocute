@@ -89,7 +89,7 @@ export declare namespace LineTypes {
 
 export declare namespace TimerComponentTypes {
   export interface PropsTimer {
-    time: Function;
+    time: () => void;
     functionality: "start" | "restart" | "pause" | string;
   }
 }

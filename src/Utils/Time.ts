@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ChangeModalVisible } from "../actions/modalActions";
-import BackgroundTimer from 'react-native-background-timer';
-import KeepAwake from 'react-native-keep-awake';
+import BackgroundTimer from "react-native-background-timer";
+import KeepAwake from "react-native-keep-awake";
 
 /**
  * The function receives the time value and returns the formatted count.

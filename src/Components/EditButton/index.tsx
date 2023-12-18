@@ -40,7 +40,7 @@ function EditButton({
           <Icon name="edit" size={size / 1.5} color={iconColor} />
         )}
       </TouchableOpacity>
-
+      {/* eslint-disable-next-line react-native/no-inline-styles */}
       <View style={{ display: isVisible ? "flex" : "none" }}>
         <TouchableOpacity
           style={[

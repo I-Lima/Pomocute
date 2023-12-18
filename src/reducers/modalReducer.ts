@@ -7,12 +7,14 @@ const INITIAL_STATE: modalTypes.modalProps = {
 };
 
 const modalReducer = (state = INITIAL_STATE, action: any) => {
+  const pattern = [400, 200, 200];
+  const repeat = true;
+
   switch (action.type) {
     case UPDATE_MODAL_VISIBLE:
-      const pattern = [400, 200, 200];
-      const repeat = true;
-
-      action.payload.value ? Vibration.vibrate(pattern, repeat) : Vibration.cancel();
+      action.payload.value
+        ? Vibration.vibrate(pattern, repeat)
+        : Vibration.cancel();
 
       return {
         ...state,

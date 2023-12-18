@@ -11,25 +11,25 @@ function ModalComponent(props: ModalComponentPropsTypes) {
   const modalState = useSelector((state: HomeTypes.StateType) => state.modal);
 
   return (
-    <Modal visible={modalState.modalVisible} transparent={true} >
+    <Modal visible={modalState.modalVisible} transparent={true}>
       <View style={styles.background} />
 
       {props.children}
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    position: 'absolute',
-    backgroundColor: '#AAA',
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: 0.3
-  }
+    position: "absolute",
+    backgroundColor: "#AAA",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.3,
+  },
 });
 
 export default ModalComponent;

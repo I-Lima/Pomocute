@@ -3,5 +3,5 @@ import { ColorActionsTypes } from "../types";
 
 export const ChangeColor: ColorActionsTypes.ChangeColorType = (value) => ({
   type: CHANGE_COLOR,
-  payload: {value}
+  payload: { value },
 });

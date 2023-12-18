@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useTimer } from "../../Utils/Time";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
@@ -134,20 +135,10 @@ function Home() {
         </View>
       ) : ( */}
       <View style={styles.content}>
-        <View style={{ flex: 0.16 }}>
+        <View style={styles.contentTitle}>
           {timerState.inFocus ? null : (
             <Text
-              style={[
-                Fonts.COMFORTAA_BOLD,
-                {
-                  fontSize: 48,
-                  color: color,
-                  borderColor: Colors.BLACK,
-                  textShadowColor: Colors.BLACK,
-                  textShadowOffset: { width: 1.5, height: 1.5 },
-                  textShadowRadius: 1,
-                },
-              ]}
+              style={[Fonts.COMFORTAA_BOLD, styles.title, { color: color }]}
             >
               Descanso
             </Text>
@@ -203,6 +194,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flex: 10,
+  },
+  contentTitle: {
+    flex: 0.16,
+  },
+  title: {
+    fontSize: 48,
+    borderColor: Colors.BLACK,
+    textShadowColor: Colors.BLACK,
+    textShadowOffset: { width: 1.5, height: 1.5 },
+    textShadowRadius: 1,
   },
   timerComponent: {
     flex: 0.5,
