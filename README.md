@@ -1,6 +1,13 @@
 [Leia esta página em português](https://github.com/0317IL/Pomocute/blob/master/README-pt.md)
 
 # Pomocute
+
+<div align="center">
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/de451ca9-a888-4668-b154-0dffb2a4d21b" width="20%" />
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/0bbcc8f0-43d1-4e4e-84ab-2f3ac42b0218" width="20%" />
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/70dab74d-6bc2-4e50-a57e-196ff084a8f1" width="20%" />
+</div>
+
 ## Introduction
 
 Pomocute is a simple react native project developed using typescript that helps users to follow the Pomodoro technique. The app comes with the standard Pomodoro technique time, but the user can also customize the time and the general color of the app.
@@ -35,13 +42,11 @@ The app features include:
 - Customizable color palette
 - Start, pause, and reset timer functionality
 
-
 ## Future Improvements
 
 Future improvements for the app include:
 
 - Allowing users to set specific tasks to work on during each Pomodoro session
-
 
 ## Technologies Used
 
