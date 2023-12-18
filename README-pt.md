@@ -2,6 +2,12 @@
 
 # Pomocute
 
+<div align="center">
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/de451ca9-a888-4668-b154-0dffb2a4d21b" width="20%" />
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/0bbcc8f0-43d1-4e4e-84ab-2f3ac42b0218" width="20%" />
+  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/70dab74d-6bc2-4e50-a57e-196ff084a8f1" width="20%" />
+</div>
+
 ## Introdução
 
 O Pomocute é um projeto simples em React Native desenvolvido com Typescript que ajuda os usuários a seguir a técnica Pomodoro. O aplicativo vem com o tempo padrão da técnica, mas o usuário pode personalizar o tempo e a cor geral do aplicativo.
