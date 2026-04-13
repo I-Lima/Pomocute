@@ -1,0 +1,27 @@
+name: ESLint Check
+
+on:
+  push:
+    branches: ["master", "development"]
+  pull_request:
+    branches: ["master", "development"]
+
+jobs:
+  eslint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js config
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Dependencies install
+        run: yarn
+
+      - name: Run ESLint
+        run: yarn lint --max-warnings=0
