@@ -9,3 +9,7 @@ export interface IActionButtonProps {
   active?: boolean;
   onPress: () => void;
 }
+
+export interface ISettingsButtonProps {
+  onPress: () => void;
+}
