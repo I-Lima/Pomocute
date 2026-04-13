@@ -13,3 +13,7 @@ export interface IActionButtonProps {
 export interface ISettingsButtonProps {
   onPress: () => void;
 }
+
+export interface ITag {
+  type: "focus" | "break";
+}
