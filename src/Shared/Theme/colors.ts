@@ -5,4 +5,5 @@ export const colors = {
   disabled: "#90A1B9",
   active: "#45556C",
   white: "#FFFFFF",
+  black: "#000000",
 };

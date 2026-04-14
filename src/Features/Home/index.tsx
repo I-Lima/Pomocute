@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import Background from "../../Shared/Components/background";
 import SettingsButton from "./Components/settingsButton";
 import ActionButton from "./Components/actionButton";
 import Tag from "./Components/Tag";
 import { colors } from "../../Shared/Theme";
+import Settings from "../Settings";
 
 export default function HomeScreen() {
   const { width } = Dimensions.get("screen");
   const ratio = width * 0.8;
 
+  const [showSettings, setShowSettings] = useState(false);
+
   const playButtonClick = () => {};
   const pauseButtonClick = () => {};
   const resetButtonClick = () => {};
-  const settingsButtonClick = () => {};
+  const settingsButtonClick = () => setShowSettings(!showSettings);
+  const setSettingsVisible = (visible: boolean) => setShowSettings(visible);
 
   return (
     <Background
@@ -40,6 +44,8 @@ export default function HomeScreen() {
         </View>
 
         <SettingsButton onPress={settingsButtonClick} />
+
+        <Settings visible={showSettings} setVisible={setSettingsVisible} />
       </View>
     </Background>
   );
