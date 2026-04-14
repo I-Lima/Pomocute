@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { IActionButtonProps } from "./types";
-import { colors } from "src/Shared/Theme";
+import { IActionButtonProps } from "../types";
+import { colors } from "../../../Shared/Theme";
 
 export default function ActionButton(props: Readonly<IActionButtonProps>) {
   const { active, icon, onPress } = props;

@@ -1,10 +1,10 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import Background from "./background";
-import SettingsButton from "./settingsButton";
-import ActionButton from "./actionButton";
-import Tag from "./Tag";
-import { colors } from "src/Shared/Theme";
+import Background from "../../Shared/Components/background";
+import SettingsButton from "./Components/settingsButton";
+import ActionButton from "./Components/actionButton";
+import Tag from "./Components/Tag";
+import { colors } from "../../Shared/Theme";
 
 export default function HomeScreen() {
   const { width } = Dimensions.get("screen");
