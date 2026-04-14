@@ -2,24 +2,35 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ITag } from "./types";
+import { colors } from "src/Shared/Theme";
 
 export default function Tag({ type }: Readonly<ITag>) {
   const renderFocus = (
     <>
-      <Icon name="bullseye" size={28} color="white" style={styles.icon} />
+      <Icon
+        name="bullseye"
+        size={28}
+        color={colors.white}
+        style={styles.icon}
+      />
       <Text style={styles.text}>FOCUS</Text>
     </>
   );
 
   const renderBreak = (
     <>
-      <Icon name="coffee" size={28} color="white" style={styles.icon} />
+      <Icon name="coffee" size={28} color={colors.white} style={styles.icon} />
       <Text style={styles.text}>BREAK</Text>
     </>
   );
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.primary, borderColor: colors.white },
+      ]}
+    >
       <View style={styles.content}>
         {type === "focus" ? renderFocus : renderBreak}
       </View>
@@ -30,8 +41,6 @@ export default function Tag({ type }: Readonly<ITag>) {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    backgroundColor: "#EF4444",
-    borderColor: "white",
     borderWidth: 3,
     borderRadius: 10,
   },

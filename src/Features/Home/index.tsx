@@ -4,6 +4,7 @@ import Background from "./background";
 import SettingsButton from "./settingsButton";
 import ActionButton from "./actionButton";
 import Tag from "./Tag";
+import { colors } from "src/Shared/Theme";
 
 export default function HomeScreen() {
   const { width } = Dimensions.get("screen");
@@ -15,12 +16,18 @@ export default function HomeScreen() {
   const settingsButtonClick = () => {};
 
   return (
-    <Background backgroundColor="#EF4444" circlesColor="#F7E8E9">
+    <Background
+      backgroundColor={colors.primary}
+      circlesColor={colors.bgPrimary}
+    >
       <View style={styles.container}>
         <View style={[styles.content, { padding: width / 5 }]}>
           <Tag type="focus" />
           <View
-            style={[styles.timerContainer, { width: ratio, height: ratio }]}
+            style={[
+              styles.timerContainer,
+              { width: ratio, height: ratio, borderColor: colors.white },
+            ]}
           >
             <Text style={styles.timerText}>25:00</Text>
           </View>
@@ -49,7 +56,6 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     display: "flex",
-    borderColor: "white",
     borderWidth: 10,
     borderRadius: 200,
     justifyContent: "center",
