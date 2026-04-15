@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   StyleSheet,
@@ -8,20 +8,29 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { ISettings } from "./types";
-import { colors } from "../../Shared/Theme";
 import Icon from "react-native-vector-icons/Ionicons";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { ISettings, SettingsFormData, createSettingsSchema } from "./types";
+import { colors } from "../../Shared/Theme";
 import { colorPalettes } from "../../Shared/Theme/colorPalettes";
 
 export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
   const handleClose = () => setVisible(false);
-  const [focusDuration, setFocusDuration] = useState("25");
-  const [breakDuration, setBreakDuration] = useState("5");
-  const [themeColor, setThemeColor] = useState(0);
 
-  const changeThemeColor = (theme: { id: number; color: string }) => {
-    setThemeColor(theme.id);
-  };
+  const {
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<SettingsFormData>({
+    resolver: zodResolver(createSettingsSchema),
+    defaultValues: {
+      focusDuration: "25",
+      breakDuration: "5",
+      themeColor: 0,
+    },
+  });
 
   const handleNumericInput = (text: string) => {
     return text.replace(/[^\d]/g, "");
@@ -50,45 +59,76 @@ export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
                 <View style={styles.inputContainer}>
                   <Text style={styles.inputLabel}>Focus Duration (min)</Text>
 
-                  <TextInput
-                    style={styles.input}
-                    value={focusDuration}
-                    onChangeText={(e) =>
-                      setFocusDuration(handleNumericInput(e))
-                    }
-                    keyboardType="numeric"
+                  <Controller
+                    control={control}
+                    name="focusDuration"
+                    render={({ field }) => (
+                      <TextInput
+                        style={styles.input}
+                        value={field.value}
+                        onChangeText={(e) =>
+                          field.onChange(handleNumericInput(e))
+                        }
+                        keyboardType="numeric"
+                      />
+                    )}
                   />
+
+                  {errors.focusDuration?.message && (
+                    <Text style={styles.inputLabel}>
+                      {errors.focusDuration?.message}
+                    </Text>
+                  )}
                 </View>
 
                 <View style={styles.inputContainer}>
                   <Text style={styles.inputLabel}>Break Duration (min)</Text>
 
-                  <TextInput
-                    style={styles.input}
-                    value={breakDuration}
-                    onChangeText={(e) =>
-                      setBreakDuration(handleNumericInput(e))
-                    }
-                    keyboardType="numeric"
+                  <Controller
+                    control={control}
+                    name="breakDuration"
+                    render={({ field }) => (
+                      <TextInput
+                        style={styles.input}
+                        value={field.value}
+                        onChangeText={(e) =>
+                          field.onChange(handleNumericInput(e))
+                        }
+                        keyboardType="numeric"
+                      />
+                    )}
                   />
+
+                  {errors.breakDuration?.message && (
+                    <Text style={styles.inputLabel}>
+                      {errors.breakDuration?.message}
+                    </Text>
+                  )}
                 </View>
 
                 <View style={styles.inputContainer}>
                   <Text style={styles.inputLabel}>Theme Color</Text>
 
-                  <View style={styles.themeContainer}>
-                    {colorPalettes.map((item) => (
-                      <TouchableOpacity
-                        key={item.id}
-                        style={[
-                          styles.colorCircle,
-                          item.id === themeColor && styles.colorCircleSelected,
-                          { backgroundColor: item.color },
-                        ]}
-                        onPress={() => changeThemeColor(item)}
-                      />
-                    ))}
-                  </View>
+                  <Controller
+                    control={control}
+                    name="themeColor"
+                    render={({ field }) => (
+                      <View style={styles.themeContainer}>
+                        {colorPalettes.map((item) => (
+                          <TouchableOpacity
+                            key={item.id}
+                            style={[
+                              styles.colorCircle,
+                              item.id === watch("themeColor") &&
+                                styles.colorCircleSelected,
+                              { backgroundColor: item.color },
+                            ]}
+                            onPress={() => field.onChange(item.id)}
+                          />
+                        ))}
+                      </View>
+                    )}
+                  />
                 </View>
               </View>
 
