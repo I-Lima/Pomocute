@@ -6,8 +6,12 @@ import ActionButton from "./Components/actionButton";
 import Tag from "./Components/Tag";
 import { colors } from "../../Shared/Theme";
 import Settings from "../Settings";
+import CustomStatesHook from "../../Shared/Hooks/customStates";
 
 export default function HomeScreen() {
+  const customStateHook = CustomStatesHook();
+  const { state } = customStateHook;
+
   const { width } = Dimensions.get("screen");
   const ratio = width * 0.8;
 
@@ -33,7 +37,7 @@ export default function HomeScreen() {
               { width: ratio, height: ratio, borderColor: colors.white },
             ]}
           >
-            <Text style={styles.timerText}>25:00</Text>
+            <Text style={styles.timerText}>{state.focusDuration}:00</Text>
           </View>
 
           <View style={[styles.actionsButtonsContainer, { width: width }]}>
@@ -45,7 +49,11 @@ export default function HomeScreen() {
 
         <SettingsButton onPress={settingsButtonClick} />
 
-        <Settings visible={showSettings} setVisible={setSettingsVisible} />
+        <Settings
+          visible={showSettings}
+          onClose={() => setSettingsVisible(false)}
+          customStateHook={customStateHook}
+        />
       </View>
     </Background>
   );

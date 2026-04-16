@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   StyleSheet,
@@ -16,41 +16,52 @@ import { ISettings, SettingsFormData, createSettingsSchema } from "./types";
 import { colors } from "../../Shared/Theme";
 import { colorPalettes } from "../../Shared/Theme/colorPalettes";
 
-export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
-  const handleClose = () => setVisible(false);
+export default function Settings({
+  visible,
+  onClose,
+  customStateHook,
+}: Readonly<ISettings>) {
+  const { state, actions } = customStateHook;
 
   const {
     control,
+    handleSubmit,
     watch,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid },
   } = useForm<SettingsFormData>({
     resolver: zodResolver(createSettingsSchema),
-    defaultValues: {
-      focusDuration: "25",
-      breakDuration: "5",
-      themeColor: 0,
-    },
+    mode: "onChange",
   });
 
-  const handleNumericInput = (text: string) => {
-    return text.replace(/[^\d]/g, "");
+  useEffect(() => {
+    reset(state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
+
+  const selectedTheme = watch("themeColor");
+
+  const handleNumericInput = (text: string) => text.replace(/[^\d]/g, "");
+
+  const onValid = (data: SettingsFormData) => {
+    actions.saveCustomStates(data);
+    onClose();
   };
 
   return (
     <Modal
       visible={visible}
-      onRequestClose={handleClose}
+      onRequestClose={onClose}
       animationType="fade"
       transparent
     >
-      <TouchableWithoutFeedback onPress={handleClose}>
-        <View style={[styles.overlay]}>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.overlay}>
           <TouchableWithoutFeedback>
             <View style={styles.modalView}>
               <View style={styles.titleSection}>
                 <Text style={styles.title}>Settings</Text>
-
-                <TouchableOpacity onPress={handleClose}>
+                <TouchableOpacity onPress={onClose}>
                   <Icon name="close" size={32} color={colors.disabled} />
                 </TouchableOpacity>
               </View>
@@ -65,18 +76,18 @@ export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
                     render={({ field }) => (
                       <TextInput
                         style={styles.input}
-                        value={field.value}
-                        onChangeText={(e) =>
-                          field.onChange(handleNumericInput(e))
+                        value={field.value ?? ""}
+                        onChangeText={(text) =>
+                          field.onChange(handleNumericInput(text))
                         }
                         keyboardType="numeric"
                       />
                     )}
                   />
 
-                  {errors.focusDuration?.message && (
+                  {errors.focusDuration && (
                     <Text style={styles.inputLabel}>
-                      {errors.focusDuration?.message}
+                      {errors.focusDuration.message}
                     </Text>
                   )}
                 </View>
@@ -90,18 +101,18 @@ export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
                     render={({ field }) => (
                       <TextInput
                         style={styles.input}
-                        value={field.value}
-                        onChangeText={(e) =>
-                          field.onChange(handleNumericInput(e))
+                        value={field.value ?? ""}
+                        onChangeText={(text) =>
+                          field.onChange(handleNumericInput(text))
                         }
                         keyboardType="numeric"
                       />
                     )}
                   />
 
-                  {errors.breakDuration?.message && (
+                  {errors.breakDuration && (
                     <Text style={styles.inputLabel}>
-                      {errors.breakDuration?.message}
+                      {errors.breakDuration.message}
                     </Text>
                   )}
                 </View>
@@ -114,25 +125,32 @@ export default function Settings({ visible, setVisible }: Readonly<ISettings>) {
                     name="themeColor"
                     render={({ field }) => (
                       <View style={styles.themeContainer}>
-                        {colorPalettes.map((item) => (
-                          <TouchableOpacity
-                            key={item.id}
-                            style={[
-                              styles.colorCircle,
-                              item.id === watch("themeColor") &&
-                                styles.colorCircleSelected,
-                              { backgroundColor: item.color },
-                            ]}
-                            onPress={() => field.onChange(item.id)}
-                          />
-                        ))}
+                        {colorPalettes.map((item) => {
+                          const isSelected = item.id === selectedTheme;
+
+                          return (
+                            <TouchableOpacity
+                              key={item.id}
+                              style={[
+                                styles.colorCircle,
+                                { backgroundColor: item.color },
+                                isSelected && styles.colorCircleSelected,
+                              ]}
+                              onPress={() => field.onChange(item.id)}
+                            />
+                          );
+                        })}
                       </View>
                     )}
                   />
                 </View>
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={handleClose}>
+              <TouchableOpacity
+                style={[styles.button, !isValid && styles.buttonDisabled]}
+                onPress={handleSubmit(onValid)}
+                disabled={!isValid}
+              >
                 <Text style={styles.buttonText}>Save Changes</Text>
               </TouchableOpacity>
             </View>
@@ -213,4 +231,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: { color: colors.white, fontSize: 16 },
+  buttonDisabled: {
+    backgroundColor: colors.disabled,
+  },
 });
