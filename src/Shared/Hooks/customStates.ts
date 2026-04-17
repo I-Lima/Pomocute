@@ -1,11 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useMemo, useState } from "react";
 import { saveCustomStateData } from "./types";
+import { colors } from "../Theme";
+import { colorPalettes } from "../Theme/colorPalettes";
 
 const INITIAL_STATE: saveCustomStateData = {
   focusDuration: "25",
   breakDuration: "5",
   themeColor: 0,
+  primaryColor: colors.primary,
 };
 
 export default function CustomStatesHook() {
@@ -16,11 +19,13 @@ export default function CustomStatesHook() {
     INITIAL_STATE.breakDuration
   );
   const [themeColor, setThemeColor] = useState(INITIAL_STATE.themeColor);
+  const [primaryColor, setPrimaryColor] = useState(INITIAL_STATE.primaryColor);
 
   const saveCustomStates = (data: saveCustomStateData) => {
     setFocusDuration(data.focusDuration);
     setBreakDuration(data.breakDuration);
     setThemeColor(data.themeColor);
+    setPrimaryColor(colorPalettes[data.themeColor].color);
 
     AsyncStorage.setItem("customStates", JSON.stringify(data));
   };
@@ -35,6 +40,7 @@ export default function CustomStatesHook() {
       setFocusDuration(data.focusDuration);
       setBreakDuration(data.breakDuration);
       setThemeColor(data.themeColor);
+      setPrimaryColor(colorPalettes[data.themeColor].color);
     });
   }, []);
 
@@ -44,10 +50,11 @@ export default function CustomStatesHook() {
         focusDuration,
         breakDuration,
         themeColor,
+        primaryColor,
       }, // State
       actions: {
         saveCustomStates,
       }, // Actions
     };
-  }, [breakDuration, focusDuration, themeColor]);
+  }, [breakDuration, focusDuration, themeColor, primaryColor]);
 }

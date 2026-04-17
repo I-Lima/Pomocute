@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { ITag } from "../types";
 import { colors } from "../../../Shared/Theme";
 
-export default function Tag({ type }: Readonly<ITag>) {
+export default function Tag({ type, color }: Readonly<ITag>) {
   const renderFocus = (
     <>
       <Icon
@@ -28,7 +28,7 @@ export default function Tag({ type }: Readonly<ITag>) {
     <View
       style={[
         styles.container,
-        { backgroundColor: colors.primary, borderColor: colors.white },
+        { backgroundColor: color, borderColor: colors.white },
       ]}
     >
       <View style={styles.content}>

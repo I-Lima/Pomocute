@@ -7,6 +7,7 @@ export interface IBackground {
 export interface IActionButtonProps {
   icon: string;
   active?: boolean;
+  color: string;
   onPress: () => void;
 }
 
@@ -16,4 +17,5 @@ export interface ISettingsButtonProps {
 
 export interface ITag {
   type: "focus" | "break";
+  color: string;
 }

@@ -25,12 +25,12 @@ export default function HomeScreen() {
 
   return (
     <Background
-      backgroundColor={colors.primary}
+      backgroundColor={state.primaryColor}
       circlesColor={colors.bgPrimary}
     >
       <View style={styles.container}>
         <View style={[styles.content, { padding: width / 5 }]}>
-          <Tag type="focus" />
+          <Tag type="focus" color={state.primaryColor} />
           <View
             style={[
               styles.timerContainer,
@@ -41,9 +41,22 @@ export default function HomeScreen() {
           </View>
 
           <View style={[styles.actionsButtonsContainer, { width: width }]}>
-            <ActionButton icon="refresh" onPress={resetButtonClick} />
-            <ActionButton active icon="play" onPress={playButtonClick} />
-            <ActionButton icon="pause" onPress={pauseButtonClick} />
+            <ActionButton
+              color={state.primaryColor}
+              icon="refresh"
+              onPress={resetButtonClick}
+            />
+            <ActionButton
+              color={state.primaryColor}
+              active
+              icon="play"
+              onPress={playButtonClick}
+            />
+            <ActionButton
+              color={state.primaryColor}
+              icon="pause"
+              onPress={pauseButtonClick}
+            />
           </View>
         </View>
 

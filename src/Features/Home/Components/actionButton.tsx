@@ -5,10 +5,10 @@ import { IActionButtonProps } from "../types";
 import { colors } from "../../../Shared/Theme";
 
 export default function ActionButton(props: Readonly<IActionButtonProps>) {
-  const { active, icon, onPress } = props;
+  const { active, icon, onPress, color } = props;
 
   const activeButtonStyle = {
-    backgroundColor: colors.primary,
+    backgroundColor: color,
     elevation: 4,
     width: 100,
     height: 100,
