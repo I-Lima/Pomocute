@@ -11,7 +11,7 @@ const INITIAL_STATE: saveCustomStateData = {
   primaryColor: colors.primary,
 };
 
-export default function CustomStatesHook() {
+export default function useCustomStates() {
   const [focusDuration, setFocusDuration] = useState(
     INITIAL_STATE.focusDuration
   );

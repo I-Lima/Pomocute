@@ -1,9 +1,9 @@
-import CustomStatesHook from "src/Shared/Hooks/customStates";
+import useCustomStates from "src/Shared/Hooks/useCustomStates";
 import z from "zod";
 
 export interface ISettings {
   visible: boolean;
-  customStateHook: ReturnType<typeof CustomStatesHook>;
+  customStateHook: ReturnType<typeof useCustomStates>;
   onClose: () => void;
 }
 
