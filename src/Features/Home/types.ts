@@ -19,3 +19,10 @@ export interface ITag {
   type: "focus" | "break";
   color: string;
 }
+
+export interface InputUseTimer {
+  initialValue: number;
+  isPlayingCallback: () => void;
+  hasStartedCallback: () => void;
+  changeFlowCallback: () => void;
+}

@@ -1,61 +1,90 @@
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Background from "../../Shared/Components/background";
 import SettingsButton from "./Components/settingsButton";
 import ActionButton from "./Components/actionButton";
 import Tag from "./Components/Tag";
 import { colors } from "../../Shared/Theme";
 import Settings from "../Settings";
-import CustomStatesHook from "../../Shared/Hooks/customStates";
+import useCustomStates from "../../Shared/Hooks/useCustomStates";
+import useHome from "./Hooks/useHome";
+import { useTimer } from "./Hooks/useTimer";
 
 export default function HomeScreen() {
-  const customStateHook = CustomStatesHook();
-  const { state } = customStateHook;
-
-  const { width } = Dimensions.get("screen");
-  const ratio = width * 0.8;
-
-  const [showSettings, setShowSettings] = useState(false);
-
-  const playButtonClick = () => {};
-  const pauseButtonClick = () => {};
-  const resetButtonClick = () => {};
-  const settingsButtonClick = () => setShowSettings(!showSettings);
-  const setSettingsVisible = (visible: boolean) => setShowSettings(visible);
+  const { state, actions } = useHome();
+  const { width, ratio, showSettings, flow, isPlaying, hasStarted } = state;
+  const {
+    settingsButtonClick,
+    setSettingsVisible,
+    changeFlow,
+    changeIsPlaying,
+    changeHasStarted,
+  } = actions;
+  const customStateHook = useCustomStates();
+  const { state: customState } = customStateHook;
+  const { state: timerState, actions: timerActions } = useTimer({
+    initialValue: flow
+      ? Number(customState.focusDuration) * 60
+      : Number(customState.breakDuration) * 60,
+    isPlayingCallback: changeIsPlaying,
+    hasStartedCallback: changeHasStarted,
+    changeFlowCallback: changeFlow,
+  });
 
   return (
     <Background
-      backgroundColor={state.primaryColor}
-      circlesColor={colors.bgPrimary}
+      backgroundColor={
+        flow === "focus" ? customState.primaryColor : colors.bgPrimary
+      }
+      circlesColor={
+        flow === "focus" ? colors.bgPrimary : customState.primaryColor + "33"
+      }
     >
       <View style={styles.container}>
         <View style={[styles.content, { padding: width / 5 }]}>
-          <Tag type="focus" color={state.primaryColor} />
+          <Tag type={flow} color={customState.primaryColor} />
           <View
             style={[
               styles.timerContainer,
-              { width: ratio, height: ratio, borderColor: colors.white },
+              {
+                width: ratio,
+                height: ratio,
+                borderColor:
+                  flow === "focus" ? colors.white : customState.primaryColor,
+              },
             ]}
           >
-            <Text style={styles.timerText}>{state.focusDuration}:00</Text>
+            <Text
+              style={[
+                styles.timerText,
+                {
+                  color:
+                    flow === "focus" ? colors.white : customState.primaryColor,
+                },
+              ]}
+            >
+              {timerState.formattedTime()}
+            </Text>
           </View>
 
           <View style={[styles.actionsButtonsContainer, { width: width }]}>
             <ActionButton
-              color={state.primaryColor}
+              active={hasStarted}
+              color={customState.primaryColor}
               icon="refresh"
-              onPress={resetButtonClick}
+              onPress={timerActions.resetTimer}
             />
             <ActionButton
-              color={state.primaryColor}
-              active
+              color={customState.primaryColor}
+              active={!isPlaying}
               icon="play"
-              onPress={playButtonClick}
+              onPress={timerActions.startTimer}
             />
             <ActionButton
-              color={state.primaryColor}
+              active={isPlaying}
+              color={customState.primaryColor}
               icon="pause"
-              onPress={pauseButtonClick}
+              onPress={timerActions.pauseTimer}
             />
           </View>
         </View>
@@ -89,7 +118,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   timerText: {
-    color: "white",
     fontSize: 64,
     fontWeight: "bold",
   },
