@@ -7,4 +7,3 @@ export * from "./settingsButton.type";
 export * from "./tag.type";
 export * from "./useTimer.type";
 export * from "./background.type";
-export * from "./saveCustomStateParams.type";

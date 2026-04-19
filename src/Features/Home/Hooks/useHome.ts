@@ -1,10 +1,12 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Dimensions } from "react-native";
-import { useFlowController } from "./index";
-import useCustomStates from "./useCustomStates";
+import { INITIAL_STATE, useFlowController } from "./index";
+import { UserSettingsContext } from "../../../Contexts";
 
 export function useHome() {
-  const { state: customState, actions: customStateHook } = useCustomStates();
+  const { state: customState, actions: customStateHook } = useContext(
+    UserSettingsContext
+  ) ?? { state: INITIAL_STATE, actions: {} };
 
   const { width } = Dimensions.get("screen");
   const ratio = width * 0.8;

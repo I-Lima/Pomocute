@@ -1,6 +1,6 @@
-import { SaveCustomStateParams } from "./saveCustomStateParams.type";
+import { useUserSettingsParams } from "../../../Shared/Types/useUserSettings";
 export type UseFlowControllerParams = {
-  customState: SaveCustomStateParams;
+  customState: useUserSettingsParams;
   onFinishTimer: () => void;
   onFinishStep: () => void;
 };

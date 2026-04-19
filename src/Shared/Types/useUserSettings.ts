@@ -1,9 +1,9 @@
-export type SaveCustomStateParams = {
+export type useUserSettingsParams = {
   focusDuration: string;
   breakDuration: string;
   themeColor: number;
 };
 
-export type InitialStateParams = SaveCustomStateParams & {
+export type InitialStateParams = useUserSettingsParams & {
   primaryColor: string;
 };
