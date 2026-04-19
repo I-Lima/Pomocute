@@ -3,16 +3,16 @@ import BackgroundTimer from "react-native-background-timer";
 import KeepAwake from "react-native-keep-awake";
 import { UseTimerParams } from "../Types";
 
+function cleanup() {
+  KeepAwake.deactivate();
+  BackgroundTimer.stopBackgroundTimer();
+}
+
 export function useTimer(params: Readonly<UseTimerParams>) {
   const { initialValue, onFinish } = params;
   const [timeLeft, setTimeLeft] = useState(initialValue);
 
   useEffect(() => setTimeLeft(initialValue), [initialValue]);
-
-  function cleanup() {
-    KeepAwake.deactivate();
-    BackgroundTimer.stopBackgroundTimer();
-  }
 
   const startBackgroundTicker = useCallback(() => {
     BackgroundTimer.stopBackgroundTimer();
