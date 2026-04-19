@@ -2,9 +2,9 @@ import React from "react";
 import { Modal, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { colors } from "../../../../Shared/Theme";
-import { ModalFlowProps } from "../../types/flowModal.type";
+import { ModalFlowProps } from "../../Types/flowModal.type";
 
-export function FlowModal(input: ModalFlowProps) {
+export function FlowModal(input: Readonly<ModalFlowProps>) {
   const { visible, onNext, onCancel, color, flow } = input;
   const breakMessage = "It's time to take a break!";
   const focusMessage = "It's time to focus!";

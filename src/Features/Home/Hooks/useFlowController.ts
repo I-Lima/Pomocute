@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTimer } from "./useTimer";
-import { UseFlowControllerParams } from "../types";
+import { UseFlowControllerParams } from "../Types";
 
-export function useFlowController(params: UseFlowControllerParams) {
+export function useFlowController(params: Readonly<UseFlowControllerParams>) {
   const { customState, onFinishTimer, onFinishStep } = params;
   const [initialTime, setInitialTime] = useState(
     Number(customState.focusDuration) * 60

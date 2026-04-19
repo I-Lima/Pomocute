@@ -2,9 +2,9 @@ import React from "react";
 import { Modal, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { colors } from "../../../../Shared/Theme";
-import { ModalFinishParams } from "../../types";
+import { ModalFinishProps } from "../../Types";
 
-export function FinishModal(params: ModalFinishParams) {
+export function FinishModal(params: Readonly<ModalFinishProps>) {
   const { visible, color, onFinish, onReset } = params;
 
   return (

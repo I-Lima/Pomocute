@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { ITag } from "../types";
 import { colors } from "../../../Shared/Theme";
+import { TagProps } from "../Types";
 
-export function Tag({ type, color }: Readonly<ITag>) {
+export function Tag({ type, color }: Readonly<TagProps>) {
   const renderFocus = (
     <>
       <Icon

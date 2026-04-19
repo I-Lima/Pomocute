@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useMemo, useState } from "react";
-import { InitialStateParams, SaveCustomStateParams } from "./types";
-import { colors } from "../Theme";
-import { colorPalettes } from "../Theme/colorPalettes";
+import { colors, colorPalettes } from "../../../Shared/Theme";
+import { InitialStateParams, SaveCustomStateParams } from "../Types";
 
 const INITIAL_STATE: InitialStateParams = {
   focusDuration: "25",
@@ -21,7 +20,7 @@ export default function useCustomStates() {
   const [themeColor, setThemeColor] = useState(INITIAL_STATE.themeColor);
   const [primaryColor, setPrimaryColor] = useState(INITIAL_STATE.primaryColor);
 
-  const saveCustomStates = (data: SaveCustomStateParams) => {
+  const saveCustomStates = (data: Readonly<SaveCustomStateParams>) => {
     setFocusDuration(data.focusDuration);
     setBreakDuration(data.breakDuration);
     setThemeColor(data.themeColor);

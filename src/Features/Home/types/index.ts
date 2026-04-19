@@ -1,27 +1,10 @@
 export * from "./finishModal.type";
 export * from "./flowModal.type";
 export * from "./useFlowController.type";
-
-export interface IBackground {
-  children: React.ReactElement;
-  backgroundColor: string;
-  circlesColor: string;
-}
-
-export interface IActionButtonProps {
-  icon: string;
-  active?: boolean;
-  color: string;
-  onPress: () => void;
-}
-
-export interface ISettingsButtonProps {
-  onPress: () => void;
-}
-
-export interface ITag {
-  type: "focus" | "break";
-  color: string;
-}
-
-export type UseTimerParams = { initialValue: number; onFinish: () => void };
+export * from "./actionButton.type";
+export * from "./settingsModal.type";
+export * from "./settingsButton.type";
+export * from "./tag.type";
+export * from "./useTimer.type";
+export * from "./background.type";
+export * from "./saveCustomStateParams.type";

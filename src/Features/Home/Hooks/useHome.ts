@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Dimensions } from "react-native";
-import useCustomStates from "../../../Shared/Hooks/useCustomStates";
 import { useFlowController } from "./index";
+import useCustomStates from "./useCustomStates";
 
 export function useHome() {
   const { state: customState, actions: customStateHook } = useCustomStates();

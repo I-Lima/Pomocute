@@ -12,16 +12,19 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { ISettings, SettingsFormData, createSettingsSchema } from "./types";
-import { colors } from "../../Shared/Theme";
-import { colorPalettes } from "../../Shared/Theme/colorPalettes";
+import {
+  SettingsParams,
+  SettingsFormData,
+  createSettingsSchema,
+} from "../../Types/settingsModal.type";
+import { colors, colorPalettes } from "../../../../Shared/Theme";
 
-export default function Settings({
+export default function SettingsModal({
   visible,
   onClose,
   customStateHook,
   color,
-}: Readonly<ISettings>) {
+}: Readonly<SettingsParams>) {
   const { state, actions } = customStateHook;
 
   const {

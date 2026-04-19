@@ -1,12 +1,12 @@
-import useCustomStates from "src/Shared/Hooks/useCustomStates";
+import useCustomStates from "src/Shared/Hooks";
 import z from "zod";
 
-export interface ISettings {
+export type SettingsParams = {
   visible: boolean;
   customStateHook: ReturnType<typeof useCustomStates>;
   color: string;
   onClose: () => void;
-}
+};
 
 // Const durationSchema = z
 //   .string()

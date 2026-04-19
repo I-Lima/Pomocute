@@ -1,22 +1,28 @@
 import React from "react";
-import { View, Image, ActivityIndicator } from "react-native";
-import LOGO from "../../../Assets/Images/logo.png";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { colors } from "../../../Shared/Theme";
+import { useBootstrap } from "../Hooks/useBootstrap";
 
 export default function SplashScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.BACKGROUND_YELLOW,
-      }}
-    >
-      <Image source={LOGO} />
+  const { state } = useBootstrap();
+  const { width } = state;
 
-      <View style={{ marginTop: Dimension.WIDTH / 3 }}>
-        <ActivityIndicator size={60} color={Colors.WHITE} />
+  return (
+    <View style={styles.container}>
+      {/* <Image source={LOGO} /> */}
+
+      <View style={{ marginTop: width / 3 }}>
+        <ActivityIndicator size={60} color={colors.white} />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.primary,
+  },
+});

@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Background from "../../Shared/Components/background";
-import { colors } from "../../Shared/Theme";
-import Settings from "../Settings";
-import { useHome } from "./Hooks";
+import Background from "../Components/background";
+import { colors } from "../../../Shared/Theme";
+import Settings from "../Components/Modal/settingsModal";
+import { useHome } from "../Hooks";
 import {
   FinishModal,
   FlowModal,
   Tag,
   ActionButton,
   SettingsButton,
-} from "./Components";
+} from "../Components";
 
 export default function HomeScreen() {
   const { state, actions } = useHome();

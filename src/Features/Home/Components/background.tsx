@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { IBackground } from "../../Features/Home/types";
+import { BackgroundProps } from "../Types";
 
-export default function Background(props: Readonly<IBackground>) {
+export default function Background(props: Readonly<BackgroundProps>) {
   const { children, backgroundColor, circlesColor } = props;
 
   return (

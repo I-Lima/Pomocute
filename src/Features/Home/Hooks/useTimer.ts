@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import BackgroundTimer from "react-native-background-timer";
 import KeepAwake from "react-native-keep-awake";
-import { UseTimerParams } from "../types";
+import { UseTimerParams } from "../Types";
 
-export function useTimer(params: UseTimerParams) {
+export function useTimer(params: Readonly<UseTimerParams>) {
   const { initialValue, onFinish } = params;
   const [timeLeft, setTimeLeft] = useState(initialValue);
 

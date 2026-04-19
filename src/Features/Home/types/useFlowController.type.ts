@@ -1,5 +1,4 @@
-import { SaveCustomStateParams } from "src/Shared/Hooks/types";
-
+import { SaveCustomStateParams } from "./saveCustomStateParams.type";
 export type UseFlowControllerParams = {
   customState: SaveCustomStateParams;
   onFinishTimer: () => void;
