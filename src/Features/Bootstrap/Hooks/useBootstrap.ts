@@ -1,11 +1,21 @@
-import { Dimensions } from "react-native";
+import { useContext, useEffect } from "react";
+import { UserSettingsContext } from "../../../Contexts";
+import { useNavigation } from "@react-navigation/native";
 
 export function useBootstrap() {
-  const { width } = Dimensions.get("screen");
+  const { state } = useContext(UserSettingsContext) ?? {};
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (state?.primaryColor) {
+      setTimeout(() => navigation.navigate("Home"), 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   return {
     state: {
-      width,
+      primaryColor: state?.primaryColor,
     },
     actions: {},
   };

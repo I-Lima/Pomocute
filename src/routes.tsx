@@ -8,11 +8,11 @@ const Stack = createNativeStackNavigator();
 const Routes = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Splash Screen"
+      initialRouteName="SplashScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Splash Screen" component={SplashScreen} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,14 +1,25 @@
 import React from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator, StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../../Shared/Theme";
 import { useBootstrap } from "../Hooks/useBootstrap";
 
 export default function SplashScreen() {
+  const { width } = Dimensions.get("screen");
   const { state } = useBootstrap();
-  const { width } = state;
+
+  if (!state.primaryColor) {
+    return null;
+  }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: state.primaryColor,
+        },
+      ]}
+    >
       {/* <Image source={LOGO} /> */}
 
       <View style={{ marginTop: width / 3 }}>

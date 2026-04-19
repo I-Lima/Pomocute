@@ -1,26 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 import Routes from "./routes";
+import { Providers } from "./Providers";
 
 const Index = () => {
-  const navigateRef = useRef(null);
-
-  const navigateToHome = () => {
-    navigateRef.current?.navigate("Home");
-  };
-
-  const loadAsyncData = async () => {
-    navigateToHome();
-  };
-
-  useEffect(() => {
-    loadAsyncData();
-  }, []);
-
   return (
-    <NavigationContainer ref={navigateRef}>
+    <Providers>
       <Routes />
-    </NavigationContainer>
+    </Providers>
   );
 };
 
