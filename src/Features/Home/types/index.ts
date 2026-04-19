@@ -1,3 +1,7 @@
+export * from "./finishModal.type";
+export * from "./flowModal.type";
+export * from "./useFlowController.type";
+
 export interface IBackground {
   children: React.ReactElement;
   backgroundColor: string;
@@ -20,9 +24,4 @@ export interface ITag {
   color: string;
 }
 
-export interface InputUseTimer {
-  initialValue: number;
-  isPlayingCallback: () => void;
-  hasStartedCallback: () => void;
-  changeFlowCallback: () => void;
-}
+export type UseTimerParams = { initialValue: number; onFinish: () => void };

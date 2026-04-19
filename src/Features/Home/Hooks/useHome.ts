@@ -1,51 +1,110 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Dimensions } from "react-native";
+import useCustomStates from "../../../Shared/Hooks/useCustomStates";
+import { useFlowController } from "./index";
 
-export default function useHome() {
+export function useHome() {
+  const { state: customState, actions: customStateHook } = useCustomStates();
+
   const { width } = Dimensions.get("screen");
   const ratio = width * 0.8;
 
   const [showSettings, setShowSettings] = useState(false);
-  const [flow, setFlow] = useState<"focus" | "break">("focus");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showFinishedModal, setShowFinishedModal] = useState(false);
 
-  const settingsButtonClick = () => setShowSettings(!showSettings);
-  const setSettingsVisible = (visible: boolean) => setShowSettings(visible);
-  const changeHasStarted = () => {
-    setHasStarted(!hasStarted);
-    if (isPlaying) {
-      changeIsPlaying();
+  const onFinishTimer = () => setShowModalVisible(true);
+  const onFinishStep = () => setShowFinishedModalVisible(true);
+
+  const { state: flowState, actions: flowActions } = useFlowController({
+    customState,
+    onFinishTimer,
+    onFinishStep,
+  });
+  const { flow, isPlaying, hasStarted, time } = flowState;
+
+  const setShowModalVisible = (visible?: boolean) => {
+    if (visible) {
+      setShowModal(visible);
+      return;
     }
+    setShowModal(!showModal);
   };
-  const changeIsPlaying = () => {
-    setIsPlaying(!isPlaying);
-    if (!hasStarted) {
-      changeHasStarted();
+  const setSettingsVisible = (visible?: boolean) => {
+    if (visible) {
+      setShowSettings(visible);
+      return;
     }
+    setSettingsVisible(!showSettings);
   };
-  const changeFlow = () => {
-    setFlow(flow === "focus" ? "break" : "focus");
-    if (hasStarted) {
-      changeHasStarted();
+
+  const setShowFinishedModalVisible = (visible?: boolean) => {
+    if (visible) {
+      setShowFinishedModal(visible);
+      return;
     }
+    setShowFinishedModal(!showFinishedModal);
+  };
+
+  const playClick = useCallback(() => {
+    flowActions.playClick();
+  }, [flowActions]);
+
+  const pauseClick = useCallback(() => {
+    flowActions.pauseClick();
+  }, [flowActions]);
+
+  const resetClick = useCallback(() => {
+    flowActions.resetClick();
+  }, [flowActions]);
+
+  const cancelModal = () => {
+    flowActions.changeFlow("focus");
+    flowActions.resetClick();
+    setShowModalVisible();
+  };
+  const nextModal = () => {
+    flowActions.changeFlow();
+    flowActions.resetClick();
+    flowActions.playClick(true);
+    setShowModalVisible();
+  };
+
+  const finishModal = () => {
+    flowActions.changeFlow("focus");
+    flowActions.resetClick();
+    setShowFinishedModalVisible();
+  };
+  const resetModal = () => {
+    flowActions.changeFlow();
+    flowActions.resetClick(true);
+    flowActions.playClick(true);
+    setShowFinishedModalVisible();
   };
 
   return {
     state: {
       width,
       ratio,
+      showModal,
       showSettings,
+      showFinishedModal,
+      customState,
       flow,
       isPlaying,
       hasStarted,
+      time,
     },
     actions: {
-      settingsButtonClick,
       setSettingsVisible,
-      changeFlow,
-      changeIsPlaying,
-      changeHasStarted,
+      cancelModal,
+      nextModal,
+      finishModal,
+      resetModal,
+      customStateHook,
+      playClick,
+      pauseClick,
+      resetClick,
     },
   };
 }

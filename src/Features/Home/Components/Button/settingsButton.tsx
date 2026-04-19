@@ -1,12 +1,10 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { ISettingsButtonProps } from "../types";
-import { colors } from "../../../Shared/Theme";
+import { ISettingsButtonProps } from "../../types";
+import { colors } from "../../../../Shared/Theme";
 
-export default function SettingsButton({
-  onPress,
-}: Readonly<ISettingsButtonProps>) {
+export function SettingsButton({ onPress }: Readonly<ISettingsButtonProps>) {
   return (
     <TouchableOpacity
       style={[styles.container, { backgroundColor: colors.white }]}

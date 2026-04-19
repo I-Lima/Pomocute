@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { ITag } from "../types";
 import { colors } from "../../../Shared/Theme";
 
-export default function Tag({ type, color }: Readonly<ITag>) {
+export function Tag({ type, color }: Readonly<ITag>) {
   const renderFocus = (
     <>
       <Icon

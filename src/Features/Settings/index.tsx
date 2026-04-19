@@ -20,6 +20,7 @@ export default function Settings({
   visible,
   onClose,
   customStateHook,
+  color,
 }: Readonly<ISettings>) {
   const { state, actions } = customStateHook;
 
@@ -28,7 +29,7 @@ export default function Settings({
     handleSubmit,
     watch,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<SettingsFormData>({
     resolver: zodResolver(createSettingsSchema),
     mode: "onChange",
@@ -36,8 +37,7 @@ export default function Settings({
 
   useEffect(() => {
     reset(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
+  }, [reset, state]);
 
   const selectedTheme = watch("themeColor");
 
@@ -147,9 +147,13 @@ export default function Settings({
               </View>
 
               <TouchableOpacity
-                style={[styles.button, !isValid && styles.buttonDisabled]}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: color,
+                  },
+                ]}
                 onPress={handleSubmit(onValid)}
-                disabled={!isValid}
               >
                 <Text style={styles.buttonText}>Save Changes</Text>
               </TouchableOpacity>
@@ -225,7 +229,6 @@ const styles = StyleSheet.create({
   button: {
     height: 48,
     width: "100%",
-    backgroundColor: colors.primary,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",

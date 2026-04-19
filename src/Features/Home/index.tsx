@@ -1,35 +1,42 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Background from "../../Shared/Components/background";
-import SettingsButton from "./Components/settingsButton";
-import ActionButton from "./Components/actionButton";
-import Tag from "./Components/Tag";
 import { colors } from "../../Shared/Theme";
 import Settings from "../Settings";
-import useCustomStates from "../../Shared/Hooks/useCustomStates";
-import useHome from "./Hooks/useHome";
-import { useTimer } from "./Hooks/useTimer";
+import { useHome } from "./Hooks";
+import {
+  FinishModal,
+  FlowModal,
+  Tag,
+  ActionButton,
+  SettingsButton,
+} from "./Components";
 
 export default function HomeScreen() {
   const { state, actions } = useHome();
-  const { width, ratio, showSettings, flow, isPlaying, hasStarted } = state;
   const {
-    settingsButtonClick,
+    width,
+    ratio,
+    showSettings,
+    showModal,
+    showFinishedModal,
+    customState,
+    flow,
+    isPlaying,
+    hasStarted,
+    time,
+  } = state;
+  const {
     setSettingsVisible,
-    changeFlow,
-    changeIsPlaying,
-    changeHasStarted,
+    cancelModal,
+    nextModal,
+    finishModal,
+    resetModal,
+    customStateHook,
+    playClick,
+    pauseClick,
+    resetClick,
   } = actions;
-  const customStateHook = useCustomStates();
-  const { state: customState } = customStateHook;
-  const { state: timerState, actions: timerActions } = useTimer({
-    initialValue: flow
-      ? Number(customState.focusDuration) * 60
-      : Number(customState.breakDuration) * 60,
-    isPlayingCallback: changeIsPlaying,
-    hasStartedCallback: changeHasStarted,
-    changeFlowCallback: changeFlow,
-  });
 
   return (
     <Background
@@ -63,38 +70,57 @@ export default function HomeScreen() {
                 },
               ]}
             >
-              {timerState.formattedTime()}
+              {time()}
             </Text>
           </View>
 
           <View style={[styles.actionsButtonsContainer, { width: width }]}>
             <ActionButton
-              active={hasStarted}
+              active={hasStarted || isPlaying}
               color={customState.primaryColor}
               icon="refresh"
-              onPress={timerActions.resetTimer}
+              onPress={resetClick}
             />
             <ActionButton
               color={customState.primaryColor}
               active={!isPlaying}
               icon="play"
-              onPress={timerActions.startTimer}
+              onPress={playClick}
             />
             <ActionButton
               active={isPlaying}
               color={customState.primaryColor}
               icon="pause"
-              onPress={timerActions.pauseTimer}
+              onPress={pauseClick}
             />
           </View>
         </View>
 
-        <SettingsButton onPress={settingsButtonClick} />
+        <SettingsButton onPress={setSettingsVisible} />
 
         <Settings
           visible={showSettings}
-          onClose={() => setSettingsVisible(false)}
-          customStateHook={customStateHook}
+          customStateHook={{
+            state: customState,
+            actions: customStateHook,
+          }}
+          color={customState.primaryColor}
+          onClose={setSettingsVisible}
+        />
+
+        <FlowModal
+          visible={showModal}
+          flow={flow}
+          color={customState.primaryColor}
+          onNext={nextModal}
+          onCancel={cancelModal}
+        />
+
+        <FinishModal
+          visible={showFinishedModal}
+          color={customState.primaryColor}
+          onReset={resetModal}
+          onFinish={finishModal}
         />
       </View>
     </Background>

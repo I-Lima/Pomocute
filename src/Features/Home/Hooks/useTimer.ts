@@ -1,72 +1,77 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BackgroundTimer from "react-native-background-timer";
 import KeepAwake from "react-native-keep-awake";
-import { InputUseTimer } from "../types";
+import { UseTimerParams } from "../types";
 
-export function useTimer(input: InputUseTimer) {
-  const {
-    initialValue,
-    isPlayingCallback,
-    hasStartedCallback,
-    changeFlowCallback,
-  } = input;
+export function useTimer(params: UseTimerParams) {
+  const { initialValue, onFinish } = params;
   const [timeLeft, setTimeLeft] = useState(initialValue);
 
   useEffect(() => setTimeLeft(initialValue), [initialValue]);
 
-  function startTimer(): void {
-    isPlayingCallback();
-    KeepAwake.activate();
+  function cleanup() {
+    KeepAwake.deactivate();
+    BackgroundTimer.stopBackgroundTimer();
+  }
+
+  const startBackgroundTicker = useCallback(() => {
+    BackgroundTimer.stopBackgroundTimer();
 
     BackgroundTimer.runBackgroundTimer(() => {
       setTimeLeft((prevTime) => {
         if (prevTime === 0) {
-          BackgroundTimer.stopBackgroundTimer();
-          changeFlowCallback();
+          cleanup();
+          onFinish();
           return prevTime;
         }
 
         return prevTime - 1;
       });
     }, 1000);
-  }
+  }, [onFinish]);
 
-  function pauseTimer(): void {
-    isPlayingCallback();
+  const startTimer = useCallback(
+    (removeInitialCall = false) => {
+      if (!removeInitialCall) {
+        KeepAwake.activate();
+      }
+
+      startBackgroundTicker();
+    },
+    [startBackgroundTicker]
+  );
+
+  const pauseTimer = useCallback(() => {
     KeepAwake.deactivate();
     BackgroundTimer.stopBackgroundTimer();
-  }
+  }, []);
 
-  function resetTimer(): void {
-    hasStartedCallback();
+  const resetTimer = useCallback(() => {
     setTimeLeft(initialValue);
+    cleanup();
+  }, [initialValue]);
 
-    KeepAwake.deactivate();
-    BackgroundTimer.stopBackgroundTimer();
-  }
-
-  function incrementTime(): void {
+  const incrementTime = useCallback(() => {
     setTimeLeft((prevTime) => prevTime + 60);
-  }
+  }, []);
 
-  function decrementTime(): void {
+  const decrementTime = useCallback(() => {
     if (timeLeft > 60) {
       setTimeLeft((prevTime) => prevTime - 60);
     }
-  }
+  }, [timeLeft]);
 
-  function formattedTime(): string {
+  const formattedTime = useCallback(() => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
     return `${minutes < 10 ? "0" + minutes : minutes}:${
       seconds < 10 ? "0" + seconds : seconds
     }`;
-  }
+  }, [timeLeft]);
 
   return {
     state: {
-      timeLeft,
       formattedTime,
     },
     actions: {
