@@ -31,7 +31,7 @@ export function useHome() {
     setShowModal(!showModal);
   };
   const setSettingsVisible = (visible?: boolean) => {
-    if (visible) {
+    if (visible !== undefined) {
       setShowSettings(visible);
       return;
     }

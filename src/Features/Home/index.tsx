@@ -96,7 +96,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <SettingsButton onPress={setSettingsVisible} />
+        <SettingsButton onPress={() => setSettingsVisible()} />
 
         <Settings
           visible={showSettings}
