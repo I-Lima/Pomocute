@@ -191,14 +191,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "600",
     color: colors.black,
+    fontFamily: "Roboto-Medium",
   },
   bodyContent: { flex: 1 },
   inputContainer: { marginBottom: 16 },
   inputLabel: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Roboto-Medium",
     color: colors.active,
     marginBottom: 8,
   },
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: "Roboto-Regular",
   },
   buttonText: { color: colors.white, fontSize: 16 },
   buttonDisabled: {

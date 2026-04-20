@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   timerText: {
     fontSize: 64,
-    fontWeight: "bold",
+    fontFamily: "Roboto-Medium",
   },
   actionsButtonsContainer: {
     display: "flex",
