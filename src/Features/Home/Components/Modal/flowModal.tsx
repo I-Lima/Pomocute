@@ -5,9 +5,9 @@ import { colors } from "../../../../Shared/Theme";
 import { ModalFlowProps } from "../../Types/flowModal.type";
 
 export function FlowModal(input: Readonly<ModalFlowProps>) {
-  const { visible, onNext, onCancel, color, flow } = input;
-  const breakMessage = "It's time to take a break!";
-  const focusMessage = "It's time to focus!";
+  const { visible, onNext, onCancel, color, flow, t } = input;
+  const breakMessage = t("flowModal.breakTitle");
+  const focusMessage = t("flowModal.focusTitle");
 
   return (
     <Modal visible={visible} animationType="fade" transparent>
@@ -46,14 +46,18 @@ export function FlowModal(input: Readonly<ModalFlowProps>) {
                 ]}
                 onPress={onNext}
               >
-                <Text style={styles.buttonTextPrimary}>Start</Text>
+                <Text style={styles.buttonTextPrimary}>
+                  {t("flowModal.start")}
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.buttonSecondary}
                 onPress={onCancel}
               >
-                <Text style={styles.buttonTextSecondary}>Cancel</Text>
+                <Text style={styles.buttonTextSecondary}>
+                  {t("flowModal.cancel")}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -5,7 +5,7 @@ import { colors } from "../../../../Shared/Theme";
 import { ModalFinishProps } from "../../Types";
 
 export function FinishModal(params: Readonly<ModalFinishProps>) {
-  const { visible, color, onFinish, onReset } = params;
+  const { visible, color, onFinish, onReset, t } = params;
 
   return (
     <Modal visible={visible} animationType="fade" transparent>
@@ -29,12 +29,11 @@ export function FinishModal(params: Readonly<ModalFinishProps>) {
                 />
               </View>
 
-              <Text style={styles.title}>Great Work!</Text>
+              <Text style={styles.title}>{t("finishModal.greatWork")}</Text>
             </View>
 
             <Text style={styles.description}>
-              You’ve reached the end of your Pomodoro cycle. Are you ready to
-              finish this task or keep the momentum going with a new cycle?
+              {t("finishModal.description")}
             </Text>
 
             <View style={styles.buttonContainer}>
@@ -47,14 +46,18 @@ export function FinishModal(params: Readonly<ModalFinishProps>) {
                 ]}
                 onPress={onReset}
               >
-                <Text style={styles.buttonTextPrimary}>New cycle</Text>
+                <Text style={styles.buttonTextPrimary}>
+                  {t("finishModal.newCycle")}
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.buttonSecondary}
                 onPress={onFinish}
               >
-                <Text style={styles.buttonTextSecondary}>Finish</Text>
+                <Text style={styles.buttonTextSecondary}>
+                  {t("finishModal.finish")}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

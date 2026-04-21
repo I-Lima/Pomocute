@@ -5,6 +5,7 @@ export type SettingsParams = {
   visible: boolean;
   customStateHook: ReturnType<typeof useCustomStates>;
   color: string;
+  t: any;
   onClose: () => void;
 };
 

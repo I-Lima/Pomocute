@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { colors } from "../../../Shared/Theme";
 import { TagProps } from "../Types";
 
-export function Tag({ type, color }: Readonly<TagProps>) {
+export function Tag({ type, color, t }: Readonly<TagProps>) {
   const renderFocus = (
     <>
       <Icon
@@ -13,14 +13,14 @@ export function Tag({ type, color }: Readonly<TagProps>) {
         color={colors.white}
         style={styles.icon}
       />
-      <Text style={styles.text}>FOCUS</Text>
+      <Text style={styles.text}>{t("tag.focus").toUpperCase()} </Text>
     </>
   );
 
   const renderBreak = (
     <>
       <Icon name="coffee" size={28} color={colors.white} style={styles.icon} />
-      <Text style={styles.text}>BREAK</Text>
+      <Text style={styles.text}>{t("tag.break").toUpperCase()}</Text>
     </>
   );
 

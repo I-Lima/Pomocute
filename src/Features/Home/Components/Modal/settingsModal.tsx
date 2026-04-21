@@ -24,6 +24,7 @@ export default function SettingsModal({
   onClose,
   customStateHook,
   color,
+  t,
 }: Readonly<SettingsParams>) {
   const { state, actions } = customStateHook;
 
@@ -63,7 +64,7 @@ export default function SettingsModal({
           <TouchableWithoutFeedback>
             <View style={styles.modalView}>
               <View style={styles.titleSection}>
-                <Text style={styles.title}>Settings</Text>
+                <Text style={styles.title}>{t("settings.settings")}</Text>
                 <TouchableOpacity onPress={onClose}>
                   <Icon name="close" size={32} color={colors.disabled} />
                 </TouchableOpacity>
@@ -71,7 +72,9 @@ export default function SettingsModal({
 
               <View style={styles.bodyContent}>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Focus Duration (min)</Text>
+                  <Text style={styles.inputLabel}>
+                    {t("settings.focusDuration")}
+                  </Text>
 
                   <Controller
                     control={control}
@@ -96,7 +99,9 @@ export default function SettingsModal({
                 </View>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Break Duration (min)</Text>
+                  <Text style={styles.inputLabel}>
+                    {t("settings.breakDuration")}
+                  </Text>
 
                   <Controller
                     control={control}
@@ -121,7 +126,9 @@ export default function SettingsModal({
                 </View>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Theme Color</Text>
+                  <Text style={styles.inputLabel}>
+                    {t("settings.themeColor")}
+                  </Text>
 
                   <Controller
                     control={control}
@@ -158,7 +165,9 @@ export default function SettingsModal({
                 ]}
                 onPress={handleSubmit(onValid)}
               >
-                <Text style={styles.buttonText}>Save Changes</Text>
+                <Text style={styles.buttonText}>
+                  {t("settings.saveChanges")}
+                </Text>
               </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
