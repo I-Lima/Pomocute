@@ -1,0 +1,25 @@
+{
+  "tag": {
+    "focus": "Focus",
+    "break": "Break"
+  },
+  "settings": {
+    "settings": "Settings",
+    "focusDuration": "Focus Duration (min)",
+    "breakDuration": "Break Duration (min)",
+    "themeColor": "Theme Color",
+    "saveChanges": "Save Changes"
+  },
+  "flowModal": {
+    "breakTitle": "It's time to take a break!",
+    "focusTitle": "It's time to focus!",
+    "start": "Start",
+    "cancel": "Cancel"
+  },
+  "finishModal": {
+    "greatWork": "Great Work!",
+    "description": "You’ve reached the end of your Pomodoro cycle. Are you ready to finish this task or keep the momentum going with a new cycle?",
+    "newCycle": "New cycle",
+    "finish": "Finish"
+  }
+}

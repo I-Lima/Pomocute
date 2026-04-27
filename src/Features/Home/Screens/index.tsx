@@ -11,9 +11,11 @@ import {
   ActionButton,
   SettingsButton,
 } from "../Components";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
   const { state, actions } = useHome();
+  const { t } = useTranslation();
   const {
     width,
     ratio,
@@ -49,7 +51,7 @@ export default function HomeScreen() {
     >
       <View style={styles.container}>
         <View style={[styles.content, { padding: width / 5 }]}>
-          <Tag type={flow} color={customState.primaryColor} />
+          <Tag type={flow} color={customState.primaryColor} t={t} />
           <View
             style={[
               styles.timerContainer,
@@ -106,6 +108,7 @@ export default function HomeScreen() {
           }}
           color={customState.primaryColor}
           onClose={setSettingsVisible}
+          t={t}
         />
 
         <FlowModal
@@ -114,6 +117,7 @@ export default function HomeScreen() {
           color={customState.primaryColor}
           onNext={nextModal}
           onCancel={cancelModal}
+          t={t}
         />
 
         <FinishModal
@@ -121,6 +125,7 @@ export default function HomeScreen() {
           color={customState.primaryColor}
           onReset={resetModal}
           onFinish={finishModal}
+          t={t}
         />
       </View>
     </Background>
