@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Svg, { Circle } from "react-native-svg";
 import Background from "../Components/background";
 import { colors } from "../../../Shared/Theme";
 import Settings from "../Components/Modal/settingsModal";
@@ -16,6 +17,7 @@ import { useTranslation } from "react-i18next";
 export default function HomeScreen() {
   const { state, actions } = useHome();
   const { t } = useTranslation();
+
   const {
     width,
     ratio,
@@ -27,7 +29,12 @@ export default function HomeScreen() {
     isPlaying,
     hasStarted,
     time,
+    circleRef,
+    radius,
+    strokeWidth,
+    circumference,
   } = state;
+
   const {
     setSettingsVisible,
     cancelModal,
@@ -52,28 +59,74 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <View style={[styles.content, { padding: width / 5 }]}>
           <Tag type={flow} color={customState.primaryColor} t={t} />
+
           <View
-            style={[
-              styles.timerContainer,
-              {
-                width: ratio,
-                height: ratio,
-                borderColor:
-                  flow === "focus" ? colors.white : customState.primaryColor,
-              },
-            ]}
+            style={[styles.animationContainer, { width: ratio, height: ratio }]}
           >
-            <Text
-              style={[
-                styles.timerText,
-                {
-                  color:
-                    flow === "focus" ? colors.white : customState.primaryColor,
-                },
-              ]}
-            >
-              {time()}
-            </Text>
+            <Svg width={ratio} height={ratio}>
+              <Circle
+                stroke={
+                  isPlaying
+                    ? flow === "focus"
+                      ? `${colors.white + "33"}`
+                      : `${customState.primaryColor + "33"}`
+                    : "transparent"
+                }
+                fill="none"
+                cx={ratio / 2}
+                cy={ratio / 2}
+                r={radius}
+                strokeWidth={strokeWidth}
+              />
+
+              <Circle
+                ref={circleRef}
+                stroke={
+                  flow === "focus" ? colors.white : customState.primaryColor
+                }
+                fill="none"
+                cx={ratio / 2}
+                cy={ratio / 2}
+                r={radius}
+                strokeWidth={strokeWidth}
+                strokeDasharray={circumference}
+                strokeDashoffset={circumference}
+                strokeLinecap="round"
+                rotation="-90"
+                origin={`${ratio / 2}, ${ratio / 2}`}
+              />
+            </Svg>
+
+            <View style={StyleSheet.absoluteFillObject}>
+              <View
+                style={[
+                  styles.timerContainer,
+                  !isPlaying && [
+                    styles.timerContainerBorder,
+                    {
+                      borderColor:
+                        flow === "focus"
+                          ? colors.white
+                          : customState.primaryColor,
+                    },
+                  ],
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.timerText,
+                    {
+                      color:
+                        flow === "focus"
+                          ? colors.white
+                          : customState.primaryColor,
+                    },
+                  ]}
+                >
+                  {time()}
+                </Text>
+              </View>
+            </View>
           </View>
 
           <View style={[styles.actionsButtonsContainer, { width: width }]}>
@@ -141,12 +194,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  timerContainer: {
-    display: "flex",
-    borderWidth: 10,
-    borderRadius: 200,
+  animationContainer: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  timerContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  timerContainerBorder: {
+    borderRadius: 200,
+    borderWidth: 10,
   },
   timerText: {
     fontSize: 64,

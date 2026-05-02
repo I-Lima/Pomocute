@@ -105,6 +105,8 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
     state: {
       flow,
       time: timerState.formattedTime,
+      timeLeft: timerState.timeLeft,
+      initialTime,
       isPlaying,
       hasStarted,
     },

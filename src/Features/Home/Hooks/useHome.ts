@@ -1,15 +1,20 @@
 import { useCallback, useContext, useState } from "react";
-import { Dimensions } from "react-native";
-import { INITIAL_STATE, useFlowController } from "./index";
+import { useWindowDimensions } from "react-native";
+
+import { useFlowController, useAnimation } from "./index";
 import { UserSettingsContext } from "../../../Contexts";
+import { INITIAL_STATE } from "../../../Shared/Hooks/useUserSettings";
 
 export function useHome() {
   const { state: customState, actions: customStateHook } = useContext(
     UserSettingsContext
   ) ?? { state: INITIAL_STATE, actions: {} };
 
-  const { width } = Dimensions.get("screen");
+  const { width } = useWindowDimensions();
   const ratio = width * 0.8;
+  const strokeWidth = 10;
+  const radius = ratio / 2 - strokeWidth;
+  const circumference = 2 * Math.PI * radius;
 
   const [showSettings, setShowSettings] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +28,14 @@ export function useHome() {
     onFinishTimer,
     onFinishStep,
   });
-  const { flow, isPlaying, hasStarted, time } = flowState;
+  const { flow, isPlaying, hasStarted, time, initialTime } = flowState;
+  const { state: animationState } = useAnimation({
+    circumference,
+    isPlaying,
+    hasStarted,
+    initialTime,
+  });
+  const { progress, circleRef, animationRef, currentProgress } = animationState;
 
   const setShowModalVisible = (visible?: boolean) => {
     if (visible) {
@@ -96,6 +108,13 @@ export function useHome() {
       isPlaying,
       hasStarted,
       time,
+      progress,
+      circleRef,
+      animationRef,
+      currentProgress,
+      circumference,
+      radius,
+      strokeWidth,
     },
     actions: {
       setSettingsVisible,
