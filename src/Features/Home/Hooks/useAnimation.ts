@@ -1,4 +1,4 @@
-import { Ref, useEffect, useRef } from "react";
+import { Ref, useCallback, useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
 import { UseAnimationParams } from "../Types";
@@ -12,6 +12,18 @@ export function useAnimation(params: Readonly<UseAnimationParams>) {
   const animationRef: Ref<Animated.CompositeAnimation | null> = useRef(null);
   const currentProgress = useRef(0);
 
+  const resetAnimationState = useCallback(() => {
+    animationRef.current?.stop();
+    progress.setValue(0);
+    currentProgress.current = 0;
+
+    if (circleRef.current) {
+      circleRef.current.setNativeProps({
+        strokeDashoffset: circumference,
+      });
+    }
+  }, [circumference, progress]);
+
   useEffect(() => {
     if (isPlaying) {
       const remainingTime = initialTime * (1 - currentProgress.current);
@@ -19,7 +31,7 @@ export function useAnimation(params: Readonly<UseAnimationParams>) {
       (animationRef as any).current = Animated.timing(progress, {
         toValue: 1,
         duration: remainingTime * 1000,
-        useNativeDriver: true,
+        useNativeDriver: false,
       });
 
       animationRef.current?.start();
@@ -34,16 +46,13 @@ export function useAnimation(params: Readonly<UseAnimationParams>) {
 
   useEffect(() => {
     if (!hasStarted) {
-      progress.setValue(0);
-      currentProgress.current = 0;
-
-      if (circleRef.current) {
-        circleRef.current.setNativeProps({
-          strokeDashoffset: circumference,
-        });
-      }
+      resetAnimationState();
     }
-  }, [hasStarted, circumference, progress]);
+  }, [hasStarted, resetAnimationState]);
+
+  useEffect(() => {
+    resetAnimationState();
+  }, [initialTime, resetAnimationState]);
 
   useEffect(() => {
     const listener = progress.addListener((value) => {

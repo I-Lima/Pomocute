@@ -29,7 +29,8 @@ export default function HomeScreen() {
     isPlaying,
     hasStarted,
     time,
-    circleRef,
+    timeLeft,
+    initialTime,
     radius,
     strokeWidth,
     circumference,
@@ -46,6 +47,12 @@ export default function HomeScreen() {
     pauseClick,
     resetClick,
   } = actions;
+
+  const progress =
+    initialTime > 0
+      ? Math.min(Math.max((initialTime - timeLeft) / initialTime, 0), 1)
+      : 0;
+  const strokeDashoffset = circumference * (1 - progress);
 
   return (
     <Background
@@ -66,7 +73,7 @@ export default function HomeScreen() {
             <Svg width={ratio} height={ratio}>
               <Circle
                 stroke={
-                  isPlaying
+                  isPlaying || hasStarted
                     ? flow === "focus"
                       ? `${colors.white + "33"}`
                       : `${customState.primaryColor + "33"}`
@@ -80,7 +87,6 @@ export default function HomeScreen() {
               />
 
               <Circle
-                ref={circleRef}
                 stroke={
                   flow === "focus" ? colors.white : customState.primaryColor
                 }
@@ -90,7 +96,7 @@ export default function HomeScreen() {
                 r={radius}
                 strokeWidth={strokeWidth}
                 strokeDasharray={circumference}
-                strokeDashoffset={circumference}
+                strokeDashoffset={strokeDashoffset}
                 strokeLinecap="round"
                 rotation="-90"
                 origin={`${ratio / 2}, ${ratio / 2}`}
@@ -101,15 +107,16 @@ export default function HomeScreen() {
               <View
                 style={[
                   styles.timerContainer,
-                  !isPlaying && [
-                    styles.timerContainerBorder,
-                    {
-                      borderColor:
-                        flow === "focus"
-                          ? colors.white
-                          : customState.primaryColor,
-                    },
-                  ],
+                  !isPlaying &&
+                    !hasStarted && [
+                      styles.timerContainerBorder,
+                      {
+                        borderColor:
+                          flow === "focus"
+                            ? colors.white
+                            : customState.primaryColor,
+                      },
+                    ],
                 ]}
               >
                 <Text
