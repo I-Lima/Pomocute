@@ -1,10 +1,15 @@
 import React from "react";
-import { View, ActivityIndicator, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 import { colors } from "../../../Shared/Theme";
 import { useBootstrap } from "../Hooks/useBootstrap";
 
 export default function SplashScreen() {
-  const { width } = Dimensions.get("screen");
+  const { width } = useWindowDimensions();
   const { state } = useBootstrap();
 
   if (!state.primaryColor) {

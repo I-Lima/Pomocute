@@ -70,8 +70,8 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
   );
 
   const playClick = useCallback(
-    (value?: boolean) => {
-      changeHasStarted(value);
+    (value = true) => {
+      changeHasStarted(true);
       changeIsPlaying(value);
       timerActions.startTimer();
     },
@@ -80,7 +80,7 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
 
   const pauseClick = useCallback(() => {
     timerActions.pauseTimer();
-    changeIsPlaying();
+    changeIsPlaying(false);
   }, [changeIsPlaying, timerActions]);
 
   const resetClick = useCallback(
@@ -105,6 +105,8 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
     state: {
       flow,
       time: timerState.formattedTime,
+      timeLeft: timerState.timeLeft,
+      initialTime,
       isPlaying,
       hasStarted,
     },

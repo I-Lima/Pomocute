@@ -1,10 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { colors, colorPalettes } from "../Theme";
-import {
-  InitialStateParams,
-  useUserSettingsParams,
-} from "../../Features/Home/Types";
+import { InitialStateParams, useUserSettingsParams } from "../Types";
 
 export const INITIAL_STATE: InitialStateParams = {
   focusDuration: "25",

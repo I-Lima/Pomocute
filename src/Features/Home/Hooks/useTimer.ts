@@ -73,6 +73,7 @@ export function useTimer(params: Readonly<UseTimerParams>) {
   return {
     state: {
       formattedTime,
+      timeLeft,
     },
     actions: {
       startTimer,

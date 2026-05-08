@@ -1,9 +1,9 @@
-import useCustomStates from "src/Shared/Hooks";
+import { useUserSettings } from "src/Shared/Hooks";
 import z from "zod";
 
 export type SettingsParams = {
   visible: boolean;
-  customStateHook: ReturnType<typeof useCustomStates>;
+  customStateHook: ReturnType<typeof useUserSettings>;
   color: string;
   t: any;
   onClose: () => void;
