@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTimer } from "./useTimer";
 import { UseFlowControllerParams } from "../Types";
+import { useNotification } from "../../../Shared/Hooks";
 
 export function useFlowController(params: Readonly<UseFlowControllerParams>) {
   const { customState, onFinishTimer, onFinishStep } = params;
@@ -12,9 +13,16 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
 
+  const { actions: notificationActions } = useNotification();
+
   const onFinish = () => {
     if (steps < 4) {
       onFinishTimer();
+
+      notificationActions.show({
+        title: flow === "focus" ? "Focus Finished" : "Break Finished",
+        body: "You can start another one",
+      });
     }
   };
 
@@ -98,8 +106,12 @@ export function useFlowController(params: Readonly<UseFlowControllerParams>) {
   useEffect(() => {
     if (steps === 4) {
       onFinishStep();
+      notificationActions.show({
+        title: "Focus Finished",
+        body: "You can start another one",
+      });
     }
-  }, [steps, onFinishStep]);
+  }, [steps, onFinishStep, notificationActions]);
 
   return {
     state: {
