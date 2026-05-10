@@ -16,7 +16,7 @@ import {
   SettingsParams,
   SettingsFormData,
   createSettingsSchema,
-} from "../../Types/settingsModal.type";
+} from "../../types/settingsModal.type";
 import { colors, colorPalettes } from "../../../../Shared/Theme";
 
 export default function SettingsModal({
