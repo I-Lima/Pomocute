@@ -39,11 +39,15 @@ export function useTimer(params: Readonly<UseTimerParams>) {
       if (!removeInitialCall) {
         KeepAwake.activate();
       }
-      notificationActions.schedule({
-        title: "Finished",
-        body: "You can start another one",
-        timestamp: Date.now() + timeLeft * 1000,
-      });
+      void notificationActions
+        .schedule({
+          title: "Finished",
+          body: "You can start another one",
+          timestamp: Date.now() + timeLeft * 1000 + 2000,
+        })
+        .catch((error: unknown) => {
+          console.warn("Failed to schedule notification", error);
+        });
 
       startBackgroundTicker();
     },

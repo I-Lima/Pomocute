@@ -21,6 +21,9 @@ export function useNotification() {
       cancelAll: NotificationService.cancelAll,
       onForeground: NotificationService.onForeground,
       onBackground: NotificationService.onBackground,
+      getSettings: NotificationService.getSettings,
+      openAlarmPermissionSettings:
+        NotificationService.openAlarmPermissionSettings,
       createChannel: NotificationService.createChannel,
       init: NotificationService.init,
       schedule: NotificationService.schedule,
