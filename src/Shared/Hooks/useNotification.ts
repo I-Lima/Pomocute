@@ -1,28 +1,20 @@
-import { AppState } from "react-native";
-import { useEffect, useRef } from "react";
 import { NotificationService } from "../Services";
 
 export function useNotification() {
-  const appState = useRef(AppState.currentState);
-
-  useEffect(() => {
-    const sub = AppState.addEventListener("change", (nextState) => {
-      appState.current = nextState;
-    });
-
-    return () => sub.remove();
-  }, []);
-
-  const canNotify = () => appState.current !== "active";
-
-  const show = (payload: { title: string; body: string }) => {
-    if (canNotify()) {
-      NotificationService.show(payload);
-    }
+  const show = (payload: {
+    title: string;
+    body: string;
+    timestamp: number;
+  }) => {
+    NotificationService.schedule(payload);
   };
 
   return {
-    state: {},
+    state: {
+      channelId: NotificationService.channelId,
+      timerFinishedNotificationId:
+        NotificationService.timerFinishedNotificationId,
+    },
     actions: {
       show,
       cancel: NotificationService.cancel,
@@ -31,6 +23,7 @@ export function useNotification() {
       onBackground: NotificationService.onBackground,
       createChannel: NotificationService.createChannel,
       init: NotificationService.init,
+      schedule: NotificationService.schedule,
     },
   };
 }

@@ -5,15 +5,12 @@ import { useNotification } from "./Shared/Hooks";
 
 const Index = () => {
   const {
-    actions: { init, onForeground },
+    actions: { init },
   } = useNotification();
 
   useEffect(() => {
     init();
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return onForeground(() => {});
-  });
+  }, [init]);
 
   return (
     <Providers>

@@ -1,18 +1,23 @@
-import notifee, { AndroidImportance } from "@notifee/react-native";
+import notifee, {
+  AlarmType,
+  AndroidImportance,
+  TriggerType,
+} from "@notifee/react-native";
 
 class NotificationService {
   channelId = "id-notification-channel-default";
+  timerFinishedNotificationId = "timer-finished-notification";
 
-  async init() {
+  init = async () => {
     await this.requestPermission();
     await this.createChannel();
-  }
+  };
 
-  async requestPermission() {
+  requestPermission = async () => {
     await notifee.requestPermission();
-  }
+  };
 
-  async createChannel() {
+  createChannel = async () => {
     await notifee.createChannel({
       id: this.channelId,
       name: "Default Channel",
@@ -21,10 +26,11 @@ class NotificationService {
       vibrationPattern: [300, 500],
       sound: "default",
     });
-  }
+  };
 
-  async show({ title, body }: { title: string; body: string }) {
+  show = async ({ title, body }: { title: string; body: string }) => {
     await notifee.displayNotification({
+      id: this.timerFinishedNotificationId,
       title,
       body,
       android: {
@@ -32,23 +38,52 @@ class NotificationService {
         pressAction: { id: "default" },
       },
     });
-  }
+  };
 
-  async cancel(id: string) {
+  schedule = async ({
+    title,
+    body,
+    timestamp,
+  }: {
+    title: string;
+    body: string;
+    timestamp: number;
+  }) => {
+    await notifee.createTriggerNotification(
+      {
+        id: this.timerFinishedNotificationId,
+        title,
+        body,
+        android: {
+          channelId: this.channelId,
+          pressAction: { id: "default" },
+        },
+      },
+      {
+        type: TriggerType.TIMESTAMP,
+        timestamp,
+        alarmManager: {
+          type: AlarmType.SET_EXACT_AND_ALLOW_WHILE_IDLE,
+        },
+      }
+    );
+  };
+
+  cancel = async (id: string) => {
     await notifee.cancelNotification(id);
-  }
+  };
 
-  async cancelAll() {
+  cancelAll = async () => {
     await notifee.cancelAllNotifications();
-  }
+  };
 
-  onForeground(callback: () => void) {
+  onForeground = (callback: () => void) => {
     return notifee.onForegroundEvent(callback);
-  }
+  };
 
-  onBackground(callback: () => Promise<void>) {
+  onBackground = (callback: () => Promise<void>) => {
     notifee.onBackgroundEvent(callback);
-  }
+  };
 }
 
 export default new NotificationService();
