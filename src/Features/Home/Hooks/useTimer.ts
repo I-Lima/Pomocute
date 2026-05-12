@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import BackgroundTimer from "react-native-background-timer";
 import KeepAwake from "react-native-keep-awake";
 import { UseTimerParams } from "../Types";
+import { useNotification } from "../../../Shared/Hooks";
 
 function cleanup() {
   KeepAwake.deactivate();
@@ -11,6 +12,9 @@ function cleanup() {
 export function useTimer(params: Readonly<UseTimerParams>) {
   const { initialValue, onFinish } = params;
   const [timeLeft, setTimeLeft] = useState(initialValue);
+
+  const { state: notificationState, actions: notificationActions } =
+    useNotification();
 
   useEffect(() => setTimeLeft(initialValue), [initialValue]);
 
@@ -35,21 +39,36 @@ export function useTimer(params: Readonly<UseTimerParams>) {
       if (!removeInitialCall) {
         KeepAwake.activate();
       }
+      void notificationActions
+        .schedule({
+          title: "Finished",
+          body: "You can start another one",
+          timestamp: Date.now() + timeLeft * 1000 + 2000,
+        })
+        .catch((error: unknown) => {
+          console.warn("Failed to schedule notification", error);
+        });
 
       startBackgroundTicker();
     },
-    [startBackgroundTicker]
+    [notificationActions, startBackgroundTicker, timeLeft]
   );
 
   const pauseTimer = useCallback(() => {
     KeepAwake.deactivate();
     BackgroundTimer.stopBackgroundTimer();
-  }, []);
+    notificationActions.cancel(notificationState.timerFinishedNotificationId);
+  }, [notificationActions, notificationState.timerFinishedNotificationId]);
 
   const resetTimer = useCallback(() => {
     setTimeLeft(initialValue);
     cleanup();
-  }, [initialValue]);
+    notificationActions.cancel(notificationState.timerFinishedNotificationId);
+  }, [
+    initialValue,
+    notificationActions,
+    notificationState.timerFinishedNotificationId,
+  ]);
 
   const incrementTime = useCallback(() => {
     setTimeLeft((prevTime) => prevTime + 60);

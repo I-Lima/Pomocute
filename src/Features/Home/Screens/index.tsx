@@ -70,14 +70,20 @@ export default function HomeScreen() {
           <View
             style={[styles.animationContainer, { width: ratio, height: ratio }]}
           >
-            <Svg width={ratio} height={ratio}>
+            <Svg
+              width={ratio}
+              height={ratio}
+              style={
+                isPlaying || hasStarted
+                  ? styles.displayFlex
+                  : styles.displayNone
+              }
+            >
               <Circle
                 stroke={
-                  isPlaying || hasStarted
-                    ? flow === "focus"
-                      ? `${colors.white + "33"}`
-                      : `${customState.primaryColor + "33"}`
-                    : "transparent"
+                  flow === "focus"
+                    ? `${colors.white + "33"}`
+                    : `${customState.primaryColor + "33"}`
                 }
                 fill="none"
                 cx={ratio / 2}
@@ -224,5 +230,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     paddingHorizontal: 48,
+  },
+  displayNone: {
+    display: "none",
+  },
+  displayFlex: {
+    display: "flex",
   },
 });
