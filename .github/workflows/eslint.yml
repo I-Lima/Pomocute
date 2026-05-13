@@ -1,4 +1,4 @@
-name: ESLint Check
+name: Changes Check
 
 on:
   push:
@@ -25,6 +25,22 @@ jobs:
 
       - name: Run ESLint
         run: yarn lint .
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js config
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Dependencies install
+        run: yarn
 
       - name: Run Tests
         run: yarn test
