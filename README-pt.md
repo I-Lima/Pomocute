@@ -2,12 +2,6 @@
 
 # Pomocute
 
-<div align="center">
-  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/de451ca9-a888-4668-b154-0dffb2a4d21b" width="20%" />
-  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/0bbcc8f0-43d1-4e4e-84ab-2f3ac42b0218" width="20%" />
-  <img src="https://github.com/I-Lima/Pomocute/assets/83174653/70dab74d-6bc2-4e50-a57e-196ff084a8f1" width="20%" />
-</div>
-
 ## Introdução
 
 O Pomocute é um projeto simples em React Native desenvolvido com Typescript que ajuda os usuários a seguir a técnica Pomodoro. O aplicativo vem com o tempo padrão da técnica, mas o usuário pode personalizar o tempo e a cor geral do aplicativo.
@@ -17,17 +11,14 @@ O Pomocute é um projeto simples em React Native desenvolvido com Typescript que
 O projeto foi desenvolvido para aprimorar o conhecimento em React Native e Typescript.
 
 ## Protótipo
-
 O protótipo apresenta a interface, os componentes e a paleta de cores do aplicativo.
 
-[Link do protótipo](https://www.figma.com/file/Z1sibEdllMCY8VdhwJRBbP/Pomocute?type=design&node-id=0%3A1&mode=design&t=pCrg2okKozaDqSlA-1)
+[Link do protótipo](https://www.figma.com/file/397lYiYHT85BPDPgHQqWjV/Pomocute?node-id=0%3A1&t=jRLbAMbGHgDTmbUB-1)
 
-## Necessidades do usuário e requisitos do software
-[Link para o documento](https://drive.google.com/file/d/16-7RF1g7K0XVfns5gybkrTUmNJ-AiuvT/view?usp=sharing)
-
+## Requisitos do software
+[Link para o documento](https://docs.google.com/document/d/1uhMJSbENiGtFhuybQojOMDzJ6dCHOt-UeCvniPRtf70/edit?usp=sharing)
 
 ## Como executar o aplicativo
-
 Siga os passos abaixo para executar o aplicativo em sua máquina local:
 
 1. Clone o repositório em sua máquina local.
@@ -44,13 +35,11 @@ As funcionalidades do aplicativo incluem:
 - Funcionalidade de iniciar, pausar e reiniciar o temporizador
 
 ## Melhorias futuras
-
 Melhorias futuras para o aplicativo incluem:
 
 - Permitir que os usuários definam tarefas específicas para trabalhar durante cada sessão Pomodoro
 
 ## Tecnologias utilizadas
-
 O aplicativo foi desenvolvido usando as seguintes tecnologias:
 
 - React Native
