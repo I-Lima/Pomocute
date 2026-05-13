@@ -31,7 +31,7 @@ export function useHome() {
   const { flow, isPlaying, hasStarted, time, initialTime, timeLeft } = flowState;
 
   const setShowModalVisible = (visible?: boolean) => {
-    if (visible) {
+    if (visible !== undefined) {
       setShowModal(visible);
       return;
     }
@@ -42,11 +42,11 @@ export function useHome() {
       setShowSettings(visible);
       return;
     }
-    setSettingsVisible(!showSettings);
+    setShowSettings(!showSettings);
   };
 
   const setShowFinishedModalVisible = (visible?: boolean) => {
-    if (visible) {
+    if (visible !== undefined) {
       setShowFinishedModal(visible);
       return;
     }
