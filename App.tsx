@@ -1,13 +1,7 @@
-import React from 'react';
-import { NativeBaseProvider } from 'native-base';
-import Index from './src';
+import React from "react";
+import Index from "./src";
+import "./src/Utils/i18n";
 
-const App = () => {
-  return (
-    <NativeBaseProvider>
-      <Index />
-    </NativeBaseProvider>
-  );
-};
+const App = () => <Index />;
 
 export default App;

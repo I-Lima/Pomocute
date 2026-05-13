@@ -64,3 +64,5 @@ buck-out/
 /vendor/bundle/
 
 .vscode
+android/app/src/main/assets/index.android.bundle
+coverage/
